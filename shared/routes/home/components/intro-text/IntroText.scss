@@ -1,0 +1,10 @@
+@import '~styles/config';
+
+.introText {
+  @include responsive-font(16, 22);
+
+  &__button {
+    display: flex;
+    justify-content: center;
+  }
+}

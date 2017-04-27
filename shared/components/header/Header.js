@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
-import UenoLogoSvg from 'assets/images/ueno-logo.svg';
+
 import s from './Header.scss';
 
 export default class Header extends Component {
@@ -15,7 +15,7 @@ export default class Header extends Component {
         <div className={s.header__container}>
           <div className={s.header__content}>
             <Link to="/" className={s.header__logo}>
-              <UenoLogoSvg className={s.header__logoSvg} />
+               Lorem Ipsum
             </Link>
 
             <div className={s.header__navigation}>

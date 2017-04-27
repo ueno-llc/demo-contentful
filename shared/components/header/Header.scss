@@ -13,15 +13,28 @@
 
   &__content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 
     padding: $gutter 0;
 
-    border-bottom: 1px solid #ccc;
+    @media (min-width: 660px) {
+      flex-direction: row;
+      align-items: center;
+    }
   }
 
   &__logo {
     @include reset-anchor;
+    @include responsive-font;
+
+    margin-bottom: $gutter;
+
+    font-family: 'Libre Baskerville', serif;
+    font-weight: bold;
+
+    @media (min-width: 660px) {
+      margin-bottom: 0;
+    }
 
     &Svg {
       display: block;
@@ -30,6 +43,9 @@
 
   &__navigation {
     display: flex;
-    margin-left: auto;
+
+    @media (min-width: 660px) {
+      margin-left: auto;
+    }
   }
 }

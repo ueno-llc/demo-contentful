@@ -1,0 +1,69 @@
+@import '~styles/config';
+
+.blog {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $gutter * 3;
+
+  @media (min-width: 660px) {
+    flex-direction: row;
+  }
+
+  &__author {
+    order: 1;
+
+    @media (min-width: 660px) {
+      padding-right: $gutter;
+      width: 25%;
+
+      order: 0;
+    }
+  }
+
+  &__title {
+    @include responsive-font(20, 28);
+
+    margin: 0;
+
+    font-family: 'Libre Baskerville', serif;
+  }
+
+  &__date {
+    margin-bottom: $gutter / 2;
+  }
+
+  &__link {
+    color: #000;
+    text-decoration: none;
+
+    transition: color $transition-enter ease-in;
+
+    &:hover {
+      color: $color-pink;
+    }
+  }
+
+  &__content {
+    margin-bottom: $gutter;
+
+    @media (min-width: 660px) {
+      width: 75%;
+    }
+  }
+
+  &__intro {
+    margin-bottom: $gutter / 2;
+  }
+
+  &__more {
+    color: #000;
+    text-decoration: none;
+    border-bottom: 2px solid #000;
+    transition: color $transition-enter ease-in, border $transition-enter ease-in;
+
+    &:hover {
+      color: $color-pink;
+      border-bottom-color: $color-pink;
+    }
+  }
+}

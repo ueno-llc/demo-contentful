@@ -1,0 +1,39 @@
+@import '~styles/config';
+
+.productList {
+  &__title {
+    @include responsive-font(20, 28);
+
+    font-family: 'Libre Baskerville', serif;
+    font-weight: bold;
+  }
+
+  &__products {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__product {
+    margin-bottom: $gutter * 3;
+    width: 100%;
+
+    box-sizing: border-box;
+
+    @media (min-width: 660px) {
+      margin-bottom: $gutter;
+
+      padding-left: $gutter / 2;
+      padding-right: $gutter / 2;
+
+      width: 50%;
+
+      &:nth-child(2n) {
+        padding-right: 0;
+      }
+
+      &:nth-child(2n+1) {
+        padding-left: 0;
+      }
+    }
+  }
+}

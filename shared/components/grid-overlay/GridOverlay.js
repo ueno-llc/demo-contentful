@@ -99,7 +99,7 @@ export default class GridOverlay extends Component {
     const { columns } = this.props;
     const verticalIsVisible = this.isVerticalVisible;
     const horizontalIsVisible = this.isHorizontalVisible;
-
+console.log('RENDER GRID')
     return (
       <div
         className={s('grid', { horizontalIsVisible }, { verticalIsVisible })}

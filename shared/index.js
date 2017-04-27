@@ -12,7 +12,9 @@ import DevTools from 'components/devtools';
 // Routes
 import Home from './routes/home';
 import About from './routes/about';
+import Products from './routes/products';
 import Planets from './routes/planets';
+import Blog from './routes/blog';
 import NotFound from './routes/not-found';
 
 export default function App() {
@@ -22,14 +24,17 @@ export default function App() {
       <Header>
         <Navigation>
           <Link to="/">Home</Link>
-          <Link to="/planets">Planets</Link>
+          <Link to="/products">Products</Link>
           <Link to="/about">About</Link>
+          <Link to="/blog">Blog</Link>
         </Navigation>
       </Header>
       <Content>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
+          <Route exact path="/products" component={Products} />
+          <Route path="/blog" component={Blog} />
           <Route path="/planets" component={Planets} />
           <Route component={NotFound} />
         </Switch>

@@ -5,7 +5,25 @@
  * absolute paths should be resolved during runtime by our build internal/server.
  */
 
+import url from 'url';
 import * as EnvVars from './utils/envVars';
+
+/**
+ * Construct the fully qualified URL to our local API.
+ * Assumes we're using HTTP in dev and HTTPS when not
+ */
+function constructLocalApiUrl() {
+  const env = EnvVars.string('NODE_ENV', 'development');
+  const protocol = env === 'development' ? 'http' : 'https';
+  const host = EnvVars.string('HOST', 'localhost');
+  const port = EnvVars.number('PORT', 3000);
+  const usedPort = port !== 80 ? `:${port}` : '';
+  const api = '/api';
+
+  const fullApiUrl = url.resolve(`${protocol}://${host}${usedPort}`, api);
+
+  return fullApiUrl;
+}
 
 const values = {
   // The configuration values that should be exposed to our client bundle.
@@ -24,7 +42,12 @@ const values = {
     polyfillIO: true,
     // We need to expose all the htmlPage settings.
     helmet: true,
+    localApiUrl: true,
   },
+
+  contentfulSpace: EnvVars.string('CONTENTFUL_SPACE', ''),
+  contenfulAccessToken: EnvVars.string('CONTENTFUL_ACCESS_TOKEN', ''),
+  localApiUrl: EnvVars.string('LOCAL_API_URL', constructLocalApiUrl()),
 
   // The public facing url of the app
   publicUrl: EnvVars.string('PUBLIC_URL'),
@@ -88,7 +111,7 @@ const values = {
       lang: 'en',
     },
     title: 'Home',
-    titleTemplate: 'Ueno. - %s',
+    titleTemplate: 'Lorm Ipsum - %s',
     meta: [
       /*
         A great reference for favicons:

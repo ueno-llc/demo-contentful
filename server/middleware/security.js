@@ -14,6 +14,7 @@ const cspConfig = {
     imgSrc: [
       "'self' 'unsafe-inline'",
       'data:',
+      'images.contentful.com',
     ],
     fontSrc: ["'self'"],
     objectSrc: ["'self'"],

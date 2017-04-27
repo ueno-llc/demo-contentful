@@ -1,0 +1,26 @@
+@import '~styles/config';
+
+.author {
+  width: 100%;
+
+  &__name {
+    @include responsive-font(20, 26);
+
+    font-family: 'Libre Baskerville', serif;
+    font-weight: bold;
+  }
+
+  &__title {
+    @include responsive-font(16, 20);
+
+    font-family: 'Libre Baskerville', serif;
+  }
+
+  &__image {
+    margin-bottom: $gutter / 2;
+  }
+
+  &__img {
+    max-width: 100%;
+  }
+}
