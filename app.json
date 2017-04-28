@@ -1,8 +1,7 @@
 {
-  "name": "Starter kit",
+  "name": "Contentful demo",
   "description": "",
   "keywords": [
-    "starter kit",
     "www"
   ],
   "scripts": {},
@@ -12,8 +11,16 @@
     "NODE_ENV": {
       "description": "Environment to build",
       "required": true
-    }
-  },
+    },
+    "CONTENTFUL_SPACE": {
+      "description": "Contentful space id",
+      "required": true
+    },
+    "CONTENTFUL_ACCESS_TOKEN": {
+      "description": "Contentful access token",
+      "required": true
+    },
+  }
   "environments": {
     "test": {
       "env": {

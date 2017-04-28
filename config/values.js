@@ -122,7 +122,7 @@ const values = {
         http://www.favicomatic.com/
       */
       { httpEquiv: 'X-UA-Compatible', content: 'IE=edge' },
-      { name: 'description', content: 'Ueno. description text here!' },
+      { name: 'description', content: 'Contentful demo project' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'msapplication-TileColor', content: '#00E2AD' },
       { name: 'msapplication-TileImage', content: '/favicons/mstile-150x150.png' },
@@ -136,7 +136,7 @@ const values = {
       { name: 'twitter:image', content: '/favicons/android-chrome-192x192.png' },
       { name: 'twitter:site', content: '@ueno' },
       { name: 'twitter:creator', content: '@ueno' },
-      { name: 'twitter:description', content: 'Ueno. description text here!' },
+      { name: 'twitter:description', content: 'Contentful demo project' },
       { name: 'twitter:title', content: 'Ueno.' },
     ],
     link: [
