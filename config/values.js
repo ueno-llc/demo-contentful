@@ -45,8 +45,8 @@ const values = {
     localApiUrl: true,
   },
 
-  contentfulSpace: EnvVars.string('CONTENTFUL_SPACE', ''),
-  contenfulAccessToken: EnvVars.string('CONTENTFUL_ACCESS_TOKEN', ''),
+  contentfulSpace: EnvVars.string('CONTENTFUL_SPACE', 'c1g5jo7yk12v'),
+  contenfulAccessToken: EnvVars.string('CONTENTFUL_ACCESS_TOKEN', '57ad9105103318b3998d16a6a1aa3b56f780c3329ca4caeeb41c7bb1c46e2ed3'),
   localApiUrl: EnvVars.string('LOCAL_API_URL', constructLocalApiUrl()),
 
   // The public facing url of the app
