@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Segment from 'components/segment';
 import Helmet from 'react-helmet';
 import { withJob } from 'react-jobs';
-import Store from 'store';
 import ReactMarkdown from 'react-markdown';
+
+import Segment from 'components/segment';
+import Heading from 'components/heading';
+import Store from 'store';
 
 class About extends Component {
 
@@ -14,12 +16,14 @@ class About extends Component {
 
   render() {
     const { jobResult: about } = this.props;
+    const { title, text } = about;
 
     return (
       <div>
-        <Helmet title="About" />
+        <Helmet title={title} />
         <Segment>
-          <ReactMarkdown skipHtml source={about.text} />
+          <Heading>{title}</Heading>
+          <ReactMarkdown skipHtml source={text} />
         </Segment>
       </div>
     );
