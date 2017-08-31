@@ -111,7 +111,7 @@ const values = {
       lang: 'en',
     },
     title: 'Home',
-    titleTemplate: 'Lorm Ipsum - %s',
+    titleTemplate: 'Lorem Ipsum - %s',
     meta: [
       /*
         A great reference for favicons:
