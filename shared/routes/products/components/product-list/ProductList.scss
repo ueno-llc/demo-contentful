@@ -1,13 +1,6 @@
 @import '~styles/config';
 
 .productList {
-  &__title {
-    @include responsive-font(20, 28);
-
-    font-family: 'Libre Baskerville', serif;
-    font-weight: bold;
-  }
-
   &__products {
     display: flex;
     flex-wrap: wrap;

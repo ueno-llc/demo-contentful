@@ -16,7 +16,6 @@ export default class ProductList extends Component {
 
     return (
       <div className={s.productList}>
-        <h2 className={s.productList__title}>Our products</h2>
         <div className={s.productList__products}>
           {childrenAsArray.map((child, i) => {
             const key = `product-${i}`;

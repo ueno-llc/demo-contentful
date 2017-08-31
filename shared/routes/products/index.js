@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withJob } from 'react-jobs';
 import Helmet from 'react-helmet';
+import ReactMarkdown from 'react-markdown';
+
 import Segment from 'components/segment';
+import Heading from 'components/heading';
 
 import Store from 'store';
 
@@ -12,21 +15,29 @@ import Product from './components/product';
 class Home extends Component {
 
   static propTypes = {
-    jobResult: PropTypes.arrayOf(PropTypes.shape({
+    jobResult: PropTypes.shape({
       title: PropTypes.string,
-      description: PropTypes.string,
-      image: PropTypes.object,
-    })),
+      products: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string,
+        description: PropTypes.string,
+        image: PropTypes.object,
+      })),
+    }),
   }
 
   render() {
-    const { jobResult: products } = this.props;
+    const { jobResult: productsPage } = this.props;
+    const { title, intro, products } = productsPage;
 
     return (
       <div>
-        <Helmet title="Products" />
+        <Helmet title={title} />
 
         <Segment>
+          <Heading>{title}</Heading>
+          {intro && (
+            <ReactMarkdown skipHtml source={intro} />
+          )}
           <ProductList>
             {products.map(product =>
               <Product
@@ -45,5 +56,5 @@ class Home extends Component {
 
 const contentful = new Store().contentful;
 export default withJob({
-  work: () => contentful.fetchByContentType('product', { order: 'fields.order' }),
+  work: () => contentful.fetchSingleByContentType('pageProducts'),
 })(Home);
