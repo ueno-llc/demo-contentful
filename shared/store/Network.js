@@ -26,7 +26,7 @@ export default class Network {
    * @return {Promise}
    */
   @autobind
-  fetch(url, { maxAge = Infinity, force = false, accessToken, stream = false } = {}) {
+  fetch(url, { maxAge = Infinity, force = false, cache = false, accessToken, stream = false } = {}) {
     const { history } = this;
 
     if (!history.has(url)) {
@@ -60,13 +60,15 @@ export default class Network {
       config.responseType = 'stream';
     }
 
-    // Create a promisified callback function to be ran by p-retry.
     const promise = axios
       .get(url, config)
       .then((res) => {
-        // Set timestamp and data to history cache
-        item.ts = new Date().getTime();
-        item.data = res.data;
+        if (cache) {
+          // Set timestamp and data to history cache
+          item.ts = new Date().getTime();
+          item.data = res.data;
+        }
+
         delete item.promise;
 
         if (stream) {
