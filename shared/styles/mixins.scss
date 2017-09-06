@@ -6,22 +6,6 @@
   left: 0;
 }
 
-@mixin font-size($size) {
-  font-size: $size * 0.6;
-
-  @media (min-width: $min-480) {
-    font-size: $size * 0.7;
-  }
-
-  @media (min-width: $min-768) {
-    font-size: $size * 0.8;
-  }
-
-  @media (min-width: $min-1200) {
-    font-size: $size;
-  }
-}
-
 @function strip-unit($number) {
   @if type-of($number) == 'number' and not unitless($number) {
     @return $number / ($number * 0 + 1);
@@ -50,15 +34,15 @@
 
 @mixin viewport($media) {
   @if $media == handset {
-    @media only screen and (max-width: $handset-landscape) { @content; }
+    @media only screen and (max-width: $min-600) { @content; }
   }
 
   @else if $media == tablet {
-    @media only screen and (min-width: $tablet) { @content; }
+    @media only screen and (min-width: $min-tablet) { @content; }
   }
 
   @else if $media == desktop {
-    @media only screen and (min-width: $desktop) { @content; }
+    @media only screen and (min-width: $min-desktop) { @content; }
   }
 
   /* stylelint-disable */
@@ -77,22 +61,38 @@
   }
 }
 
+// segment customisable per-component / instance rather than being forced to work around defaults.
+@mixin segment($padding-top: $segment-padding, $padding-bottom: $segment-padding, $padding-top-mobile: $segment-padding-mobile, $padding-bottom-mobile: $segment-padding-mobile) {
+  padding-top: $padding-top-mobile;
+  padding-bottom: $padding-bottom-mobile;
+
+  @media (min-width: $min-tablet) {
+    padding-top: percentage(strip-unit($padding-top)/strip-unit($limit));
+    padding-bottom: percentage(strip-unit($padding-bottom)/strip-unit($limit));
+  }
+
+  @media (min-width: $limit) {
+    padding-top: strip-unit($padding-top) * 1px;
+    padding-bottom: strip-unit($padding-bottom) * 1px;
+  }
+}
+
 @mixin container() {
   margin: 0 auto;
 
   padding: 0 $container-gutter-mobile;
   max-width: $page-width + $container-gutter-mobile * 1;
 
-  @include viewport(340px) {
+  @media (min-width: 340px) {
     max-width: $page-width + $container-gutter-mobile * 2;
   }
 
-  @include viewport(tablet) {
+  @media (min-width: $min-tablet) {
     padding: 0 $container-gutter-tablet;
     max-width: $page-width + $container-gutter-tablet * 2;
   }
 
-  @include viewport(desktop) {
+  @media (min-width: $min-desktop) {
     padding: 0 $container-gutter-desktop;
     max-width: $page-width + $container-gutter-desktop * 2;
   }

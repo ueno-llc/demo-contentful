@@ -1,12 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import { computed } from 'mobx';
 import { withJob } from 'react-jobs';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
+import { autobind } from 'core-decorators';
+
 import Segment from 'components/segment';
 import Button from 'components/button';
-import { autobind } from 'core-decorators';
 
 const LoadingComponent = () => (
   <Segment>
