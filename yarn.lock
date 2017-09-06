@@ -6129,7 +6129,7 @@ react-jobs@1.0.0-beta.3:
   version "1.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/react-jobs/-/react-jobs-1.0.0-beta.3.tgz#f4f1e04df0c96252fd9c0ca9fc5d8aa16fd80b9d"
 
-react-markdown@^2.5.0:
+react-markdown@2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/react-markdown/-/react-markdown-2.5.0.tgz#b1c61904fee5895886803bd9df7db23c3dc3a89e"
   dependencies:
@@ -6173,12 +6173,6 @@ react-side-effect@^1.1.0:
   dependencies:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
-
-react-svgdom-loader@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/react-svgdom-loader/-/react-svgdom-loader-3.0.0.tgz#49db7120ca4812eee7ac08ee3065524f8ca1b6d4"
-  dependencies:
-    loader-utils "^0.2.11"
 
 react-tree-walker@^2.1.1:
   version "2.1.2"
