@@ -20,7 +20,7 @@
       "description": "Contentful access token",
       "required": true
     },
-  }
+  },
   "environments": {
     "test": {
       "env": {
