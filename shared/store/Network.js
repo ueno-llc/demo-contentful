@@ -1,6 +1,6 @@
 import { observable, ObservableMap } from 'mobx';
 import { autobind } from 'core-decorators';
-import axios from 'axios';
+import axios, { CancelToken } from 'axios';
 
 /**
  * This store handles network requests.
@@ -26,7 +26,17 @@ export default class Network {
    * @return {Promise}
    */
   @autobind
-  fetch(url, { maxAge = Infinity, force = false, cache = false, accessToken, stream = false } = {}) {
+  fetch(
+    url,
+    {
+      maxAge = Infinity,
+      force = false,
+      cache = false,
+      accessToken,
+      stream = false,
+      ...rest
+    } = {},
+  ) {
     const { history } = this;
 
     if (!history.has(url)) {
@@ -45,12 +55,23 @@ export default class Network {
     // Return cache if still valid
     if (item.data) {
       const now = new Date().getTime();
-      if ((now / 1000) - (item.ts / 1000) <= maxAge) {
+      if (((now / 1000) - item.ts) / 1000 <= maxAge) {
         return Promise.resolve(item.data);
       }
     }
 
-    const config = { headers: {} };
+    // Adds cancel token
+    // Store the cancel method in the `cancel` variable
+    let cancel;
+    const config = Object.assign(
+      {
+        cancelToken: new CancelToken((c) => {
+          cancel = c;
+        }),
+        headers: {},
+      },
+      rest,
+    );
 
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
@@ -60,6 +81,7 @@ export default class Network {
       config.responseType = 'stream';
     }
 
+    // Create a promisified callback function to be ran by p-retry.
     const promise = axios
       .get(url, config)
       .then((res) => {
@@ -78,12 +100,19 @@ export default class Network {
         return res.data;
       })
       .catch((err) => {
-        // Delete promise so we know we're not running anyting for this url anymore.
-        console.error('Error', err);
-        delete item.promise;
-        throw err;
+        if (axios.isCancel(err)) {
+          // Nothing to do, really
+        } else {
+          console.error('Error', err);
+
+          // Delete promise so we know we're not running anything for this url anymore.
+          delete item.promise;
+          throw err;
+        }
       });
 
+    // Attach the cancel method to the promise
+    promise.cancel = cancel;
     // Attach promise to history item for further use
     item.promise = promise;
 

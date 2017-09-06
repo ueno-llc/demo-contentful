@@ -14,10 +14,6 @@
   width: device-width;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 html, body { // stylelint-disable-line
   min-height: 100vh;
 
@@ -28,7 +24,17 @@ html { // stylelint-disable-line
   -webkit-overflow-scrolling: touch;
 
   overflow-x: hidden;
+  // always show the vertical scrollbar so that content doesn't jump
   overflow-y: scroll;
+
+  box-sizing: border-box;
+}
+
+// inherited from <html>
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
 body { // stylelint-disable-line
@@ -39,7 +45,10 @@ body { // stylelint-disable-line
   font-family: $font-family;
   font-size: $font-size;
   line-height: $line-height;
-  color: $font-color;
+  color: $color-default;
+
+  // iOS on orientation change
+  text-size-adjust: 100%;
 
   overflow-x: hidden;
 }
@@ -48,4 +57,20 @@ img { // stylelint-disable-line
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+// placeholders
+input, textarea, select { // stylelint-disable-line
+  &::-webkit-input-placeholder { // stylelint-disable-line
+    color: $color-placeholder;
+  }
+
+  &::-moz-placeholder { // stylelint-disable-line
+    opacity: 1;
+    color: $color-placeholder;
+  }
+
+  &:-ms-input-placeholder { // stylelint-disable-line
+    color: $color-placeholder;
+  }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import serialize from 'serialize-javascript';
 import filterWithRules from '../../internal/utils/objects/filterWithRules';
 import values from '../values';
@@ -21,21 +22,20 @@ const serializedClientConfig = serialize(clientConfig);
  *
  * They get bound to window.__CLIENT_CONFIG__
  */
-function ClientConfig({ nonce }) {
+function ClientConfig({ addHash }) {
   return (
     <script
       type="text/javascript"
-      nonce={nonce}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
-        __html: `window.__CLIENT_CONFIG__=${serializedClientConfig}`,
+        __html: addHash(`window.__CLIENT_CONFIG__=${serializedClientConfig}`),
       }}
     />
   );
 }
 
 ClientConfig.propTypes = {
-  nonce: React.PropTypes.string.isRequired,
+  addHash: PropTypes.func.isRequired,
 };
 
 export default ClientConfig;

@@ -1,5 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import Container from 'components/container';
+
 import s from './Segment.scss';
 
 /**
@@ -8,9 +11,13 @@ import s from './Segment.scss';
 export default class Segment extends Component {
 
   static propTypes = {
-    compact: PropTypes.bool,
+    container: PropTypes.bool,
     children: PropTypes.node,
   };
+
+  static defaultProps = {
+    container: true,
+  }
 
   /**
    * Render method
@@ -19,14 +26,14 @@ export default class Segment extends Component {
   render() {
     const {
       children,
-      compact,
+      container,
     } = this.props;
 
+    const content = container ? (<Container>{children}</Container>) : children;
+
     return (
-      <section className={s('segment', { compact })}>
-        <Container>
-          {children}
-        </Container>
+      <section className={s.segment}>
+        {content}
       </section>
     );
   }
