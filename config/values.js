@@ -17,17 +17,51 @@ import CliVar from './utils/cliVar';
  * Construct the fully qualified URL to our local API.
  * Assumes we're using HTTP in dev and HTTPS when not
  */
-function constructLocalApiUrl() {
-  const env = EnvVars.string('NODE_ENV', 'development');
-  const protocol = env === 'development' ? 'http' : 'https';
-  const host = EnvVars.string('HOST', 'localhost');
+function defaultLocalApiUrl(envValue = '') {
+
+  // Hack, since Heroku doesn't allow for disabling env inheritance unless you
+  // specify a non-empty string value. So, in app.json we give LOCAL_API_URL a
+  // value of " " and check that here ¯\_(ツ)_/¯
+  if (envValue.trim() !== '') {
+    return envValue.trim();
+  }
+
+  const herokuAppName = EnvVars.string('HEROKU_APP_NAME', '');
+  // If running on Heroku and app name is available (defined in app.json), use that
+  if (herokuAppName !== '') {
+    return `https://${herokuAppName}.herokuapp.com/api`;
+  }
+
   const port = EnvVars.number('PORT', 3000);
-  const usedPort = port !== 80 ? `:${port}` : '';
-  const api = '/api';
 
-  const fullApiUrl = url.resolve(`${protocol}://${host}${usedPort}`, api);
+  return EnvVars.string('API_URL', `http://localhost:${port}/api`);
+}
 
-  return fullApiUrl;
+function defaultClientLocalApiUrl(envValue = '', localApiUrl = '') {
+  if (envValue && envValue !== '') {
+    return envValue;
+  }
+
+  const isClientDevProxy = EnvVars.bool('CLIENT_DEV_PROXY', false);
+
+  if (isClientDevProxy) {
+    return '/api';
+  }
+
+  if (localApiUrl && localApiUrl !== '') {
+    return localApiUrl;
+  }
+
+  return '/api';
+}
+
+const localApiUrl = defaultLocalApiUrl(EnvVars.string('LOCAL_API_URL'));
+const clientLocalApiUrl = defaultClientLocalApiUrl(EnvVars.string('CLIENT_LOCAL_API_URL'), localApiUrl);
+
+console.info('Local API served from %s', localApiUrl);
+
+if (localApiUrl !== clientLocalApiUrl) {
+  console.info('Client API served from %s', clientLocalApiUrl);
 }
 
 const values = {
@@ -47,7 +81,9 @@ const values = {
     polyfillIO: true,
     // We need to expose all the htmlPage settings.
     helmet: true,
-    localApiUrl: true,
+
+    clientLocalApiUrl: true,
+
     // Google Analytics is initialized on the client.
     gaId: true,
     // Expose heroku devtools flag
@@ -56,7 +92,8 @@ const values = {
 
   contentfulSpace: EnvVars.string('CONTENTFUL_SPACE', 'c1g5jo7yk12v'),
   contenfulAccessToken: EnvVars.string('CONTENTFUL_ACCESS_TOKEN', '57ad9105103318b3998d16a6a1aa3b56f780c3329ca4caeeb41c7bb1c46e2ed3'),
-  localApiUrl: EnvVars.string('LOCAL_API_URL', constructLocalApiUrl()),
+  localApiUrl,
+  clientLocalApiUrl,
 
   // The public facing url of the app
   publicUrl: EnvVars.string('PUBLIC_URL'),
