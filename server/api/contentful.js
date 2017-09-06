@@ -4,9 +4,10 @@ import Network from 'store/Network';
 import config from '../../config';
 
 const space = config('contentfulSpace');
-const accessToken = config('contenfulAccessToken');
+const accessToken = config('contentfulAccessToken');
+const endpoint = config('contentfulEndpoint');
 
-const apiUrl = `https://cdn.contentful.com/spaces/${space}/entries`;
+const apiUrl = `https://${endpoint}/spaces/${space}/entries`;
 
 const app = express();
 

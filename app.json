@@ -20,6 +20,10 @@
       "description": "Contentful access token",
       "required": true
     },
+    "CONTENTFUL_ENDPOINT": {
+      "description": "Contentful enpoint",
+      "required": true
+    },
   },
   "environments": {
     "test": {
