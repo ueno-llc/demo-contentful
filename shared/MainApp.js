@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, NavLink } from 'react-router-dom';
 import config from 'utils/config';
 
 // Layout
@@ -25,10 +25,9 @@ export default function App() {
       <Helmet {...config('helmet')} />
       <Header>
         <Navigation>
-          <Link to="/">Home</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/about">About</Link>
-          <Link to="/blog">Blog</Link>
+          <NavLink to="/products">Products</NavLink>
+          <NavLink to="/about">About</NavLink>
+          <NavLink to="/blog">Blog</NavLink>
         </Navigation>
       </Header>
       <Content>
