@@ -2,6 +2,7 @@
 
 import express from 'express';
 import compression from 'compression';
+import bodyParser from 'body-parser';
 import { resolve as pathResolve } from 'path';
 import appRootDir from 'app-root-dir';
 import security from './middleware/security';
@@ -27,6 +28,8 @@ app.disable('x-powered-by');
 
 // Security middlewares.
 app.use(...security);
+
+app.use(bodyParser.json({ type: 'application/*+json' }))
 
 // Gzip compress the responses.
 app.use(compression());

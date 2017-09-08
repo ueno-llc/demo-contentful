@@ -47,5 +47,5 @@ class BlogEntry extends Component {
 
 const contentful = new Store().contentful;
 export default withJob({
-  work: ({ match }) => contentful.fetchSingleByContentType('blog', { 'sys.id': match.params.id }),
+  work: ({ match }) => contentful.fetchSingleByContentType('blog', { id: match.params.id }),
 })(BlogEntry);

@@ -28,7 +28,7 @@ export default class Contentful {
   fetchByContentType(contentType, query = {}) {
     const q = this.query(query);
 
-    const url = `${apiUrl}/contentful/${contentType}?${q}`;
+    const url = `${apiUrl}/contentful/contentType/${contentType}?${q}`;
 
     return this.fetch(url, { force: true })
       .then(data => parse(data))
