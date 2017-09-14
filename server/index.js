@@ -29,7 +29,7 @@ app.disable('x-powered-by');
 // Security middlewares.
 app.use(...security);
 
-app.use(bodyParser.json({ type: 'application/*+json' }))
+app.use(bodyParser.json({ type: 'application/*+json' }));
 
 // Gzip compress the responses.
 app.use(compression());

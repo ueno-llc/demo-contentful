@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withJob } from 'react-jobs';
 import Helmet from 'react-helmet';
-import config from 'utils/config';
+import ReactMarkdown from 'react-markdown';
 
 import Segment from 'components/segment';
 import Button from 'components/button';
@@ -28,7 +28,10 @@ class Home extends Component {
 
         <Segment>
           <IntroText>
-            <p>{intro}</p>
+            <ReactMarkdown
+              skipHtml
+              source={intro}
+            />
             <Button to="/products">See our products</Button>
           </IntroText>
         </Segment>
