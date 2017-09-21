@@ -1,6 +1,6 @@
 
 import redis from './redis';
-import { parseIncludes, setItemLocale } from './contentful';
+import { parseIncludes, setItemLocale, setFieldLocale } from './contentful';
 import config from './config';
 
 const cacheEnabledConfig = config('contentfulCache');
@@ -16,11 +16,15 @@ function log(first, ...rest) {
   }
 }
 
-function createCacheKey({ contentType, id, asset }) {
+function createCacheKey({ contentType, id, asset, entry }) {
   const cacheKeyId = id ? `-${id}` : '';
 
   if (asset) {
     return `${prefix}-asset${cacheKeyId}`;
+  }
+
+  if (entry) {
+    return `${prefix}-entry${cacheKeyId}`;
   }
 
   return `${prefix}-contentType:${contentType}${cacheKeyId}`;
@@ -35,14 +39,13 @@ function createCacheKey({ contentType, id, asset }) {
  */
 function createTopicCacheKey(topic, sys) {
   const id = sys.id;
-  const contentType = sys.contentType && sys.contentType.sys.id;
 
   switch (topic) {
     case 'ContentManagement.Entry.publish':
     case 'ContentManagement.Entry.unpublish':
     case 'ContentManagement.Entry.delete':
     case 'ContentManagement.Entry.archive':
-      return createCacheKey({ contentType, id });
+      return createCacheKey({ entry: true, id });
     case 'ContentManagement.Asset.publish':
     case 'ContentManagement.Asset.unpublish':
     case 'ContentManagement.Asset.delete':
@@ -64,44 +67,39 @@ function cacheWriteThrough(contentful) {
   return redis.writeThrough(cacheKey, cacheTime);
 }
 
-function updateCacheWithItems(data, cachedItem, cachedEntries) {
-  // update the item from cache
-  if (cachedItem && data.items && data.items.length > 0) {
-    const parsedCachedItem = JSON.parse(cachedItem);
-    const item = data.items[0];
-    const updatedAt = new Date(item.sys.updatedAt);
-    const cachedUpdatedAt = new Date(parsedCachedItem.sys.updatedAt);
+function updateWithCache(data, cached, type = '') {
+  const seen = [];
 
-    if (cachedUpdatedAt.getTime() >= updatedAt.getTime()) {
-      log('Replacing item from cache', item.sys.id);
+  if (data.includes && data.includes[type]) {
+    data.includes[type].forEach((item) => {
+      const id = item.sys.id;
+      const updatedAt = new Date(item.sys.updatedAt);
 
-      const replacementItem = setItemLocale(parsedCachedItem);
+      const cachedItem =
+        cached.find(i => i && i.sys && i.sys.id && i.sys.id === id);
 
-      data.items.splice(0, 1, replacementItem);
-    }
-  }
+      if (cachedItem) {
+        seen.push(cachedItem);
 
-  // update the entries from cache
-  if (data.includes && data.includes.Entry) {
-    data.includes.Entry.forEach((entry) => {
-      const id = entry.sys.id;
-      const updatedAt = new Date(entry.sys.updatedAt);
+        const cachedUpdatedAt = new Date(cachedItem.sys.updatedAt);
 
-      const cachedEntry =
-        cachedEntries.find(i => i && i.sys && i.sys.id && i.sys.id === id);
-
-      if (cachedEntry) {
-        const cachedUpdatedAt = new Date(cachedEntry.sys.updatedAt);
         if (cachedUpdatedAt.getTime() >= updatedAt.getTime()) {
-          log('Replacing linked field from cache', id);
+          log('Replacing item from cache', type, id);
 
-          delete entry.fields;
-          entry.fields = cachedEntry.fields;
-          delete entry.sys;
-          entry.sys = cachedEntry.sys;
+          delete item.fields;
+          item.fields = cachedItem.fields;
+          delete item.sys;
+          item.sys = cachedItem.sys;
         }
       }
     });
+  }
+
+  const missing = cached.filter(el => !seen.includes(el));
+
+  if (missing.length > 0) {
+    data.includes[type] = data.includes[type].concat(missing);
+    log('Appending missing', type);
   }
 
   return data;
@@ -140,6 +138,122 @@ async function isCached(cacheKey) {
   return hasCache;
 }
 
+/**
+ * Updates an array result from contentful with cached entries and fixes
+ * includes with other cached things
+ *
+ * @param  {object} data Data from Contentful
+ * @return {Promise} data untouched if it's not an array, otherwise array with
+ *                   updates from cache
+ */
+async function updateItemFromCache(data) {
+  if (data.sys.type !== 'Array') {
+    return data;
+  }
+
+  // keys for all items in the array
+  const keys = data.items.map((item) => {
+    const id = item.sys.id;
+
+    return createCacheKey({ entry: true, id });
+  });
+
+  // array of all possible cached items, null if no cached entry at each index
+  const cachedItems = await redis.mgetAsync(keys);
+  const cachedItemsParsed = cachedItems.map(i => JSON.parse(i));
+
+  // update items if they're fresher
+  data.items.forEach((item) => {
+    const id = item.sys.id;
+    const updatedAt = new Date(item.sys.updatedAt);
+
+    const cachedItem =
+      cachedItemsParsed.find(i => i && i.sys && i.sys.id && i.sys.id === id);
+
+    if (cachedItem) {
+      const cachedUpdatedAt = new Date(cachedItem.sys.updatedAt);
+      if (cachedUpdatedAt.getTime() >= updatedAt.getTime()) {
+        log('Replacing item from cache', id);
+
+        const replacementItem = setItemLocale(cachedItem);
+
+        delete item.fields;
+        item.fields = replacementItem.fields;
+        delete item.sys;
+        item.sys = replacementItem.sys;
+      }
+    }
+  });
+
+  return data;
+}
+
+function getLinksFromField(field, linkType = 'Entry') {
+  const links = [];
+
+  if (typeof field === 'object' &&
+      field.sys &&
+      field.sys.type === 'Link' &&
+      field.sys.linkType === linkType) {
+    links.push(field.sys.id);
+  }
+
+  if (Array.isArray(field)) {
+    field.forEach((i) => {
+      const link = getLinksFromField(i, linkType);
+      links.push(...link);
+    });
+  }
+
+  return links;
+}
+
+function getLinkedItems(data = [], linkType = 'Entry') {
+  const links = [];
+
+  data.forEach((item) => {
+    if (!item || !item.fields) {
+      return;
+    }
+
+    Object.keys(item.fields).forEach((key) => {
+      const field = setFieldLocale(item.fields[key]);
+      const fieldLinks = getLinksFromField(field, linkType);
+      links.push(...fieldLinks);
+    });
+  });
+
+  // make the array unique
+  return [...new Set(links)];
+}
+
+async function linkAndCache(data, included, type = '') {
+  const includedIds = included.map(item => item.sys.id);
+
+  let linked = getLinkedItems(data.items, type);
+
+  if (type === 'Asset' && data.includes && data.includes.Entry) {
+    const linkedFromEntries = getLinkedItems(data.includes.Entry, type);
+    linked = linked.concat(linkedFromEntries);
+  }
+
+  const all = includedIds.concat(linked);
+  const allUnique = [...new Set(all)];
+
+  const cacheKeys = allUnique.map(id =>
+    createCacheKey({ [type.toLowerCase()]: true, id }));
+
+  const cached = await redis.mgetAsync(cacheKeys);
+
+  const cachedParsed = cached
+    .filter(Boolean)
+    .map(i => JSON.parse(i));
+
+  const result = updateWithCache(data, cachedParsed, type);
+
+  return result;
+}
+
 async function fetchFromCache(contentful) {
   const cacheKey = createCacheKey(contentful);
 
@@ -152,31 +266,14 @@ async function fetchFromCache(contentful) {
   const data = await redis.getAsync(cacheKey);
   const parsed = JSON.parse(data);
 
-  const { entries } = parseIncludes(parsed);
+  const parsedWithCache = await updateItemFromCache(parsed);
 
-  // for each entry linked in the result, create the cache key
-  const entriesIds = entries.map((entry) => {
-    const id = entry.sys.id;
-    const contentType = entry.sys.contentType.sys.id;
+  const { entries, assets } = parseIncludes(parsedWithCache);
 
-    return createCacheKey({ contentType, id });
-  });
+  const processedEntries = await linkAndCache(parsedWithCache, entries, 'Entry');
+  const processedAssets = await linkAndCache(processedEntries, assets, 'Asset');
 
-  const contentType = parsed.items[0].sys.contentType.sys.id; // lol
-  const id = parsed.items[0].sys.id;
-
-  const itemCacheKey = createCacheKey({ contentType, id });
-
-  // lookup the current item (first!) and see if it's cached
-  const cachedItem = await redis.getAsync(itemCacheKey);
-
-  // lookup all possible entries cached via webhook
-  const cachedEntries = await redis.mgetAsync(entriesIds);
-
-  const cachedEntriesParsed = cachedEntries.map(i => JSON.parse(i));
-  const result = updateCacheWithItems(parsed, cachedItem, cachedEntriesParsed);
-
-  return result;
+  return processedAssets;
 }
 
 export {

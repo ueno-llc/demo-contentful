@@ -9,6 +9,10 @@ function setFieldLocale(field, locale = defaultLocale) {
   return field;
 }
 
+function isDeleted(item) {
+  return item && item.sys && item.sys.type === 'DeletedEntry';
+}
+
 function linkField(field, includes, locale) {
   let f = setFieldLocale(field);
 
@@ -18,6 +22,10 @@ function linkField(field, includes, locale) {
 
   if (f.sys && f.sys.type === 'Link') {
     const link = includes[f.sys.linkType].find(m => m.sys.id === f.sys.id);
+
+    if (isDeleted(link)) {
+      return null;
+    }
 
     if (link && link.fields) {
       return linkEntry(link, includes); // eslint-disable-line no-use-before-define
@@ -30,6 +38,10 @@ function linkField(field, includes, locale) {
 }
 
 function setItemLocale(item, locale = defaultLocale) {
+  if (!item || !item.fields) {
+    return item;
+  }
+
   Object.keys(item.fields).forEach((key) => {
     const field = item.fields[key];
 
@@ -46,6 +58,11 @@ function setItemLocale(item, locale = defaultLocale) {
 
 function linkEntry(item, includes) {
   const res = {};
+
+  if (isDeleted(item)) {
+    return null;
+  }
+
   const locale = (item.sys && item.sys.locale) || defaultLocale;
 
   Object.keys(item.fields).forEach((key) => {
@@ -69,7 +86,10 @@ function linkEntry(item, includes) {
 function parse(data = {}) {
   const items = data.items || {};
   const includes = data.includes || {};
-  const parsed = items.map(m => linkEntry(m, includes));
+  const parsed = items
+    .map(m => linkEntry(m, includes))
+    // drop any undefined values from linking
+    .filter(Boolean);
 
   return parsed;
 }
@@ -83,4 +103,4 @@ function parseIncludes(data = {}) {
   return { entries, assets };
 }
 
-export { linkField, linkEntry, parse, parseIncludes, setItemLocale };
+export { linkField, linkEntry, parse, parseIncludes, setItemLocale, setFieldLocale };

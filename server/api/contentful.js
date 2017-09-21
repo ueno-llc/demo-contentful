@@ -17,9 +17,10 @@ const network = new Network({});
 const app = express();
 
 function fetchContentful(type, id) {
-  const urlId = id ? `/${id}` : '';
+  const urlId = id ? `&sys.id=${id}` : '';
 
-  return network.fetch(`${apiUrl}${urlId}?content_type=${type}`, {
+  console.info('Fetching from Contentful', type, id);
+  return network.fetch(`${apiUrl}?content_type=${type}${urlId}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -46,6 +47,7 @@ async function fromCache(req, res, next) {
     const cachedData = await fetchFromCache(req.contentful);
 
     if (cachedData) {
+      console.info('Serving from cache', req.contentful);
       return res.send(cachedData);
     }
   } catch (e) {
@@ -60,13 +62,13 @@ async function fromContentfulAndCache(req, res) {
 
   let resp = null;
   try {
-    resp = await fetchContentful(contentful.contentType);
+    resp = await fetchContentful(contentful.contentType, contentful.id);
   } catch (e) {
     console.error('Error fetching from contentful', e);
     return res.status(500).send('500 Internal Error');
   }
 
-  if (cacheEnabled) {
+  if (cacheEnabled()) {
     try {
       // if something fails here we'll still be able to serve the data w/o cache
       resp.data.pipe(cacheWriteThrough(contentful));
@@ -82,12 +84,13 @@ async function fromContentfulAndCache(req, res) {
 async function webhookHandler(req, res) {
   const topic = req.headers['x-contentful-topic'];
 
-  if (!cacheEnabled) {
+  if (!cacheEnabled()) {
     return res.status(501).send('501 Not Implemented');
   }
 
   try {
     if (await cache(topic, req.body)) {
+      console.info('Cached request from Contentful', topic);
       return res.status(201).send('201 Created');
     }
   } catch (e) {
