@@ -23,7 +23,7 @@
     "CONTENTFUL_ENDPOINT": {
       "description": "Contentful enpoint",
       "required": true
-    },
+    }
   },
   "environments": {
     "test": {
