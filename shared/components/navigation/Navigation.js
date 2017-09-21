@@ -17,6 +17,7 @@ export default class Navigation extends Component {
             <li className={s.navigation__item}>
               {React.cloneElement(component, {
                 className: s.navigation__link,
+                activeClassName: s.navigation__linkActive,
               })}
             </li>
           ))}

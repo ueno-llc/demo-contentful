@@ -11,7 +11,8 @@ import config from '../../config';
 
 const space = config('contentfulSpace');
 const accessToken = config('contenfulAccessToken');
-const apiUrl = `https://cdn.contentful.com/spaces/${space}/entries`;
+const endpoint = config('contentfulEndpoint');
+const apiUrl = `https://${endpoint}/spaces/${space}/entries`;
 
 const network = new Network({});
 const app = express();
