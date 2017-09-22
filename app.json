@@ -8,6 +8,15 @@
   "website": "https://github.com/ueno-llc/starter-kit-universally#readme",
   "repository": "https://github.com/ueno-llc/starter-kit-universally.git",
   "env": {
+    "HEROKU_APP_NAME": {
+      "description": "App name on Heroku",
+      "required": false
+    },
+    "LOCAL_API_URL": {
+      "description": "Local API url",
+      "value": " ",
+      "required": false
+    },
     "NODE_ENV": {
       "description": "Environment to build",
       "required": true
@@ -23,7 +32,7 @@
     "CONTENTFUL_ENDPOINT": {
       "description": "Contentful enpoint",
       "required": true
-    },
+    }
   },
   "environments": {
     "test": {
