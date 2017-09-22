@@ -98,6 +98,8 @@ const values = {
   localApiUrl,
   clientLocalApiUrl,
 
+  redisUrl: EnvVars.string('REDIS_URL', ''),
+
   // The public facing url of the app
   publicUrl: EnvVars.string('PUBLIC_URL'),
 

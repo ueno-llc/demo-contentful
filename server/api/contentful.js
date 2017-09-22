@@ -20,7 +20,7 @@ const app = express();
 function fetchContentful(type, id) {
   const urlId = id ? `&sys.id=${id}` : '';
 
-  console.info('Fetching from Contentful', type, id);
+  console.info('Fetching from Contentful', { contentType: type, id });
   return network.fetch(`${apiUrl}?content_type=${type}${urlId}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
