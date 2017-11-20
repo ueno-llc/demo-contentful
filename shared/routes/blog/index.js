@@ -1,11 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import NotFound from 'routes/not-found';
 
 import BlogList from './BlogList';
 import BlogEntry from './BlogEntry';
 
-const PlanetsRoutes = ({ match }) => (
+const BlogRoutes = ({ match }) => (
   <div>
     <Switch>
       <Route exact path={`${match.url}/:id`} component={BlogEntry} />
@@ -15,8 +16,8 @@ const PlanetsRoutes = ({ match }) => (
   </div>
 );
 
-PlanetsRoutes.propTypes = {
+BlogRoutes.propTypes = {
   match: PropTypes.object,
 };
 
-export default PlanetsRoutes;
+export default BlogRoutes;

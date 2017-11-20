@@ -12,7 +12,7 @@ import Store from 'store';
 import ProductList from './components/product-list';
 import Product from './components/product';
 
-class Home extends Component {
+class Products extends Component {
 
   static propTypes = {
     jobResult: PropTypes.shape({
@@ -57,4 +57,4 @@ class Home extends Component {
 const contentful = new Store().contentful;
 export default withJob({
   work: () => contentful.fetchSingleByContentType('pageProducts'),
-})(Home);
+})(Products);

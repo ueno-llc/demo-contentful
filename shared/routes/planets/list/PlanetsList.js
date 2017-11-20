@@ -22,7 +22,7 @@ const LoadingComponent = () => (
   shouldWorkAgain: (prev, next) => prev.match.params.page !== next.match.params.page,
   LoadingComponent,
 })
-export default class Planets extends Component {
+export default class PlanetsList extends Component {
 
   static propTypes = {
     jobResult: PropTypes.shape({

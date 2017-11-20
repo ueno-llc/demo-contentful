@@ -141,7 +141,7 @@ export default class GridOverlay extends Component {
           </div>
         </div>
 
-        {!noPanel ? [
+        {!noPanel && [
           <button key="v" className={s('grid__button', { verticalIsVisible })} onClick={this.onToggleVertical}>
             <svg className={s.grid__button__svg} width="14px" height="14px" viewBox="0 0 14 14">
               <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -162,7 +162,7 @@ export default class GridOverlay extends Component {
               </g>
             </svg>
           </button>,
-        ] : null}
+        ]}
       </div>
     );
   }

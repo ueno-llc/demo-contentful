@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withJob } from 'react-jobs';
 import Helmet from 'react-helmet';
-import config from 'utils/config';
 
 import Segment from 'components/segment';
 import Button from 'components/button';
