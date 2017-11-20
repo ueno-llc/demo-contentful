@@ -15,8 +15,6 @@ export default class Product extends Component {
   render() {
     const { title, description, image } = this.props;
 
-    const hasUrl = image && image.file && image.file.url;
-
     return (
       <div className={s.product}>
         <h3 className={s.product__title}>{title}</h3>
@@ -28,16 +26,16 @@ export default class Product extends Component {
               className={s.product__markdown}
             />
           </div>
-          {hasUrl ? (
+          {image && (
             <div className={s.product__image}>
               <img
                 className={s.product__img}
-                src={image.file.url}
+                src={image.url}
                 alt=""
                 role="presentation"
               />
             </div>
-          ) : null}
+          )}
         </div>
       </div>
     );
