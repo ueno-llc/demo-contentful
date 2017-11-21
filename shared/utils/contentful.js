@@ -18,7 +18,13 @@ function linkEntry(item, includes) {
 
   Object.keys(item.fields).forEach((key) => {
     if (Array.isArray(item.fields[key])) {
-      res[key] = item.fields[key].map(m => linkField(m, includes));
+      res[key] = item.fields[key].reduce((result, m) => {
+        const linkedField = linkField(m, includes);
+        if (linkedField) {
+          result.push(linkedField);
+        }
+        return result;
+      }, []);
     } else {
       res[key] = linkField(item.fields[key], includes);
     }
