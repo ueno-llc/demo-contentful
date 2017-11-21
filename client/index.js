@@ -4,7 +4,7 @@ import BrowserRouter from 'react-router-dom/BrowserRouter';
 import asyncBootstrapper from 'react-async-bootstrapper';
 import { AsyncComponentProvider } from 'react-async-component';
 import { JobProvider } from 'react-jobs';
-import { Provider } from 'mobx-react';
+import { Provider, useStaticRendering } from 'mobx-react';
 import { toJS } from 'mobx';
 import stringify from 'json-stringify-safe';
 import ReactGA from 'react-ga';
@@ -59,10 +59,14 @@ function renderApp(TheApp) {
     </ReactHotLoader>
   );
 
+  useStaticRendering(true);
   // We use the react-async-component in order to support code splitting of
   // our bundle output. It's important to use this helper.
   // @see https://github.com/ctrlplusb/react-async-component
-  asyncBootstrapper(app).then(() => render(app, container));
+  asyncBootstrapper(app).then(() => {
+    useStaticRendering(false);
+    render(app, container);
+  });
 }
 
 // Execute the first render of our app.

@@ -13,10 +13,8 @@ export default class Hero extends Component {
   render() {
     const { children, image } = this.props;
 
-    const hasUrl = image && image.file && image.file.url;
-
     const style = {
-      backgroundImage: hasUrl ? `url(${image.file.url})` : null,
+      backgroundImage: image ? `url(${image.url})` : null,
     };
 
     return (
