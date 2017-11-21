@@ -2983,6 +2983,12 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
+flatten-object-strict@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/flatten-object-strict/-/flatten-object-strict-1.0.1.tgz#2511d9df03a90f73cc1a94cd1027c3d0789940b6"
+  dependencies:
+    object-leaves "^1.0.0"
+
 flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
@@ -5227,6 +5233,10 @@ object-is@^1.0.1:
 object-keys@^1.0.10, object-keys@^1.0.8:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.0.11.tgz#c54601778ad560f1142ce0e01bcca8b56d13426d"
+
+object-leaves@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/object-leaves/-/object-leaves-1.0.0.tgz#ea800cf3ba5fd7686c9328356594c09cef59af75"
 
 object-values@^1.0.0:
   version "1.0.0"

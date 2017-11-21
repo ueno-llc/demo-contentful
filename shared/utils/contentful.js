@@ -1,11 +1,11 @@
-import flattenObject from 'utils/flattenObject';
+import flattenObjectStrict from 'flatten-object-strict';
 
 function linkedAsset(asset) {
   const { sys, fields } = asset;
 
   if (!(fields.file && fields.file.url)) return undefined;
 
-  return flattenObject({ ...fields, id: sys.id });
+  return flattenObjectStrict({ ...fields, id: sys.id });
 }
 
 function linkField(field, includes) {

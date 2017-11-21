@@ -99,6 +99,7 @@
     "express": "4.15.4",
     "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "0.11.2",
+    "flatten-object-strict": "^1.0.1",
     "glob": "7.1.2",
     "happypack": "3.1.0",
     "helmet": "3.8.1",
@@ -164,5 +165,8 @@
     "webpack-bundle-analyzer": "2.9.0",
     "webpack-dev-middleware": "1.12.0",
     "webpack-hot-middleware": "2.18.2"
-  }
+  },
+  "moduleRoots": [
+    "shared"
+  ]
 }
