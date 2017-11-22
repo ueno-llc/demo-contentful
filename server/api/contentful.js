@@ -20,16 +20,17 @@ app.get('/:contentType',
 
     try {
       res.set('content-type', 'application/json; charset=utf-8');
+
       const url = `${apiUrl}?content_type=${type}&${query}`;
 
       new Network({}).fetch(url, { accessToken, stream: true })
-      .then((resp) => {
-        resp.data.pipe(res);
-      })
-      .catch((err) => {
-        console.error('Error fetching', err);
-        res.status(500).end();
-      });
+        .then((resp) => {
+          resp.data.pipe(res);
+        })
+        .catch((err) => {
+          console.error('Error fetching', err);
+          res.status(500).end();
+        });
     } catch (e) {
       console.error('Error while fetching contentful', e);
       res.status(500).end();
@@ -39,20 +40,26 @@ app.get('/:contentType',
 
 app.get('/search/:q',
   async (req, res) => {
-    try {
-      // const api = await primiscApi(req);
-      // const q = req.params.q || '';
-      // const response = await api.query([
-      //   prismic.Predicates.any('document.type', ['about', 'article', 'articles', 'custom_page', 'homepage']),
-      //   prismic.Predicates.fulltext('document', q),
-      // ]);
+    const query = req.params.q;
 
-      res.send(response);
+    try {
+      res.set('content-type', 'application/json; charset=utf-8');
+
+      const url = `${apiUrl}?query=${query}`;
+
+      new Network({}).fetch(url, { accessToken, stream: true })
+        .then((resp) => {
+          resp.data.pipe(res);
+        })
+        .catch((err) => {
+          console.error('Error searching', err);
+          res.status(500).end();
+        });
     } catch (e) {
-      console.error('error querying prismic', e);
-      res.status(500).send('500');
+      console.error('Error while searching contentful', e);
+      res.status(500).end();
     }
-  }
+  },
 );
 
 export default app;

@@ -25,6 +25,7 @@
 
   &__row {
     @include grid-row;
+
     flex-direction: column;
 
     @media (min-width: $min-420) {
@@ -47,8 +48,9 @@
   }
 
   &__search {
-    max-width: 200px;
     margin-top: 30px;
+
+    max-width: 200px;
   }
 
   &__navigation {

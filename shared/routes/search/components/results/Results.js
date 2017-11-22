@@ -1,10 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import s from './styles.scss';
+
+import s from './Results.scss';
 
 export default class Results extends PureComponent {
+
   static propTypes = {
     children: PropTypes.node,
+    onSearch: PropTypes.func,
+    query: PropTypes.string,
+    count: PropTypes.number,
   }
 
   onKeyUp = (e) => {
@@ -16,7 +21,7 @@ export default class Results extends PureComponent {
   }
 
   render() {
-    const { query, count } = this.props;
+    const { children, query, count } = this.props;
 
     return (
       <div className={s.results}>
@@ -31,9 +36,7 @@ export default class Results extends PureComponent {
             onKeyUp={this.onKeyUp}
           />
 
-          <div>
-            {this.props.children}
-          </div>
+          <div>{children}</div>
         </div>
       </div>
     );

@@ -27,7 +27,7 @@ export default class App extends Component {
       <Link key="products" to="/products">Products</Link>,
       <Link key="about" to="/about">About</Link>,
       <Link key="blog" to="/blog">Blog</Link>,
-    ]
+    ];
   }
 
   render() {

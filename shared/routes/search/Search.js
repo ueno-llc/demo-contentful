@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { withJob } from 'react-jobs';
 import { inject } from 'mobx-react';
-import { Link } from 'react-router-dom';
 
 import Results, { Group, Item } from './components/results';
 
@@ -17,7 +16,7 @@ class Search extends Component {
   render() {
     const { history, jobResult, match } = this.props;
     const { q } = match.params;
-    const { count, ...results } = jobResult;
+    const { count, res } = jobResult;
 
     return (
       <div>
@@ -26,20 +25,18 @@ class Search extends Component {
         <Results
           query={q}
           count={count}
-          onSearch={(value) => history.push(`/search/${value}`)}
+          onSearch={value => history.push(`/search/${value}`)}
         >
-          {Object.keys(results).map(key => (
-            <Group key={key} title={key}>
-              {results[key].map(r => (
-                <Item
-                  key={r.id}
-                  to={r.to}
-                  title={r.title}
-                  text={r.description}
-                />
-              ))}
-            </Group>
-          ))}
+          <Group>
+            {res.map(r => (
+              <Item
+                key={r.id}
+                title={r.title}
+                text={r.description}
+                image={r.imageUrl}
+              />
+            ))}
+          </Group>
         </Results>
       </div>
     );
@@ -48,7 +45,8 @@ class Search extends Component {
 
 const searchWithJob = withJob({
   work: ({ contentful, match }) => contentful.search(match.params.q),
-  shouldWorkAgain: (prevProps, nextProps, jobStatus) => prevProps.match.params.q !== nextProps.match.params.q,
+  shouldWorkAgain: (prevProps, nextProps) =>
+    prevProps.match.params.q !== nextProps.match.params.q,
 })(Search);
 
 export default inject('contentful')(searchWithJob);
