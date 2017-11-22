@@ -37,4 +37,22 @@ app.get('/:contentType',
   },
 );
 
+app.get('/search/:q',
+  async (req, res) => {
+    try {
+      // const api = await primiscApi(req);
+      // const q = req.params.q || '';
+      // const response = await api.query([
+      //   prismic.Predicates.any('document.type', ['about', 'article', 'articles', 'custom_page', 'homepage']),
+      //   prismic.Predicates.fulltext('document', q),
+      // ]);
+
+      res.send(response);
+    } catch (e) {
+      console.error('error querying prismic', e);
+      res.status(500).send('500');
+    }
+  }
+);
+
 export default app;

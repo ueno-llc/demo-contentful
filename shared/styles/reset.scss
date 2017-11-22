@@ -3,6 +3,7 @@
   margin: 0;
 
   font-family: inherit;
+  font-style: inherit;
   font-size: inherit;
   font-weight: inherit;
   line-height: inherit;
@@ -13,6 +14,10 @@
 }
 
 @mixin reset-heading {
+  @include reset-all;
+}
+
+@mixin reset-paragraph {
   @include reset-all;
 }
 

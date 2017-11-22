@@ -1,10 +1,10 @@
 @import '~styles/config';
 
 .introText {
+  @include reset-paragraph;
   @include responsive-font(16, 22);
 
-  &__button {
-    display: flex;
-    justify-content: center;
-  }
+  font-weight: 300;
+
+  column-count: 2;
 }

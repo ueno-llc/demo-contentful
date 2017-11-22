@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import s from './Navigation.scss';
 
-export default class Navigation extends Component {
+export default class Navigation extends PureComponent {
 
   static propTypes = {
     children: PropTypes.node,
@@ -17,7 +17,6 @@ export default class Navigation extends Component {
             <li className={s.navigation__item}>
               {React.cloneElement(component, {
                 className: s.navigation__link,
-                activeClassName: s.navigation__linkActive,
               })}
             </li>
           ))}
