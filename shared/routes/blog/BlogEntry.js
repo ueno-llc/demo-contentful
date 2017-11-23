@@ -47,7 +47,7 @@ class BlogEntry extends Component {
 }
 
 const blogEntryWithJob = withJob({
-  work: ({ contentful }) => contentful.fetchSingleByContentType('blog', { 'sys.id': match.params.id }),
+  work: ({ contentful, match }) => contentful.fetchSingleByContentType('blog', { 'sys.id': match.params.id }),
   LoadingComponent: () => (
     <Segment />
   ),

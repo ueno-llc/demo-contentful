@@ -31,6 +31,7 @@
       flex: 0 0 230px;
     }
   }
+
   &__bottom {
     flex: 0 0 auto;
   }
@@ -42,6 +43,7 @@
       min-width: 100%;
     }
   }
+
   &__title {
     @include heading(20, 26);
   }

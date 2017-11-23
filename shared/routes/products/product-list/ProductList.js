@@ -23,7 +23,7 @@ class ProductList extends Component {
 
   render() {
     const { jobResult: productsPage } = this.props;
-    const { title, intro, products } = productsPage;
+    const { title, products } = productsPage;
 
     return (
       <div>
@@ -32,14 +32,16 @@ class ProductList extends Component {
         <Intro>
           <h1>Our products</h1>
           <h2>More than you ever wanted to see</h2>
-          <p>Here’s the thing. As Ueno has gone from one bearded guy in his living room to more than 50 people of 20 nationalities in four offices with real tables and chairs, we’ve started thinking about how we can keep being ourselves, even as we grow and change.</p>
+          <p>Here’s the thing. As Ueno has gone from one bearded guy in his living room to more
+          than 50 people of 20 nationalities in four offices with real tables and chairs, we’ve
+          started thinking about how we can keep being ourselves, even as we grow and change.</p>
         </Intro>
 
         <List>
-          {products.map(({ id, title, introduction, image }) => (
+          {products.map(({ id, title: productTitle, introduction, image }) => (
             <Item
               key={id}
-              title={title}
+              title={productTitle}
               intro={introduction}
               image={image}
               url={`/products/${id}`}

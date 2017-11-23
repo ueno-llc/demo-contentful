@@ -1,4 +1,4 @@
-import React, { cloneElement, Children } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import s from './Article.scss';

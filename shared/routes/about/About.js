@@ -25,7 +25,10 @@ class About extends Component {
         <Intro>
           <h1>Such Ueno.</h1>
           <h2>Very digital. Much agency.</h2>
-          <p>Ueno is a full-service, first-rate, all-singing, all-dancing, fast-growing, flame-haired, bull-chested, fun-loving, not-quite-bourgeois, not-quite-bohemian agency, busy designing and building beautiful digital products, brands, and experiences.</p>
+          <p>Ueno is a full-service, first-rate, all-singing, all-dancing, fast-growing,
+          flame-haired, bull-chested, fun-loving, not-quite-bourgeois,
+          not-quite-bohemian agency, busy designing and building beautiful
+          digital products, brands, and experiences.</p>
         </Intro>
 
         <Segment>

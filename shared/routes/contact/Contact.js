@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';

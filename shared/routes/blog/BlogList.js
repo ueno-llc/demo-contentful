@@ -6,10 +6,7 @@ import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
 
 import Intro from 'components/intro';
-import Blog from 'components/blog';
 import List, { Item } from 'components/list';
-
-import Blogs from './components/blogs';
 
 class BlogList extends Component {
 
@@ -27,11 +24,14 @@ class BlogList extends Component {
         <Intro>
           <h1>Words of wisdom</h1>
           <h2>More than you ever wanted to know</h2>
-          <p>Here’s the thing. As Ueno has gone from one bearded guy in his living room to more than 50 people of 20 nationalities in four offices with real tables and chairs, we’ve started thinking about how we can keep being ourselves, even as we grow and change.</p>
+          <p>Here’s the thing. As Ueno has gone from one bearded guy in his living
+          room to more than 50 people of 20 nationalities in four offices with
+          real tables and chairs, we’ve started thinking about how we can keep
+          being ourselves, even as we grow and change.</p>
         </Intro>
 
         <List>
-          {blogs.map(({ id, title, intro, author, date }) => (
+          {blogs.map(({ id, title, intro }) => (
             <Item
               key={id}
               title={title}

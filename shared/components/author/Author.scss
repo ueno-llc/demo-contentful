@@ -25,6 +25,7 @@
 
   &__block {
     display: flex;
+
     margin: $gutter 0 $gutter * 1.5;
   }
 
@@ -32,10 +33,13 @@
     flex: 0 0 auto;
 
     margin-right: 1em;
+
     width: 60px;
     height: 60px;
-    overflow: hidden;
+
     border-radius: 50%;
+
+    overflow: hidden;
   }
 
   &__text {
@@ -47,6 +51,7 @@
   &__paragraph {
     @include reset-paragraph;
     @include responsive-font(14, 16);
+
     font-weight: 200;
 
     &:first-child {

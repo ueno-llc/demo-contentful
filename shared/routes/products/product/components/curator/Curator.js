@@ -11,7 +11,7 @@ const Curator = ({ name, bio, image }) => (
           <div className={s.curator__block}>
             <div className={s.curator__image}>
               {image && (
-                <img src={image} role="presentation" />
+                <img src={image} alt={name} />
               )}
             </div>
 

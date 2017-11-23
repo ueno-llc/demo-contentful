@@ -19,7 +19,7 @@ export default class Cover extends Component {
           <img
             className={s.cover__img}
             src={get(children, 'file.url')}
-            role="presentation"
+            alt=""
           />
         </div>
       </div>
