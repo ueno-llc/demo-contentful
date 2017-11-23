@@ -6,10 +6,9 @@ import { inject } from 'mobx-react';
 
 import Segment from 'components/segment';
 import Intro from 'components/intro';
+import List, { Item } from 'components/list';
 
-import List, { Item } from './components/list';
-
-class Home extends Component {
+class ProductList extends Component {
 
   static propTypes = {
     jobResult: PropTypes.shape({
@@ -25,7 +24,6 @@ class Home extends Component {
   render() {
     const { jobResult: productsPage } = this.props;
     const { title, intro, products } = productsPage;
-    console.log('-products', products);
 
     return (
       <div>
@@ -53,11 +51,15 @@ class Home extends Component {
   }
 }
 
-const homeWithJob = withJob({
+const productListWithJob = withJob({
   work: ({ contentful }) => contentful.fetchSingleByContentType('pageProducts'),
   LoadingComponent: () => (
-    <Intro isLoading />
+    <div>
+      <Intro isLoading />
+      <Segment />
+      <Segment />
+    </div>
   ),
-})(Home);
+})(ProductList);
 
-export default inject('contentful')(homeWithJob);
+export default inject('contentful')(productListWithJob);

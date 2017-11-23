@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Segment from 'components/segment';
 import Helmet from 'react-helmet';
+import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
-import Store from 'store';
 
+import Intro from 'components/intro';
 import Blog from 'components/blog';
+import List, { Item } from 'components/list';
+
 import Blogs from './components/blogs';
 
 class BlogList extends Component {
@@ -20,26 +23,38 @@ class BlogList extends Component {
     return (
       <div>
         <Helmet title="Blog" />
-        <Segment>
-          <Blogs>
-            {blogs.map(blog =>
-              <Blog
-                key={blog.id}
-                id={blog.id}
-                title={blog.title}
-                intro={blog.intro}
-                author={blog.author}
-                date={blog.date}
-              />,
-            )}
-          </Blogs>
-        </Segment>
+
+        <Intro>
+          <h1>Words of wisdom</h1>
+          <h2>More than you ever wanted to know</h2>
+          <p>Here’s the thing. As Ueno has gone from one bearded guy in his living room to more than 50 people of 20 nationalities in four offices with real tables and chairs, we’ve started thinking about how we can keep being ourselves, even as we grow and change.</p>
+        </Intro>
+
+        <List>
+          {blogs.map(({ id, title, intro, author, date }) => (
+            <Item
+              key={id}
+              title={title}
+              intro={intro}
+              image={{ file: { url: 'https://iso.500px.com/wp-content/uploads/2014/12/500px-article-header.jpg' } }}
+              url={`/blog/${id}`}
+            />
+          ))}
+        </List>
       </div>
     );
   }
 }
 
-const contentful = new Store().contentful;
-export default withJob({
-  work: () => contentful.fetchByContentType('blog'),
+const blogListWithJob = withJob({
+  work: ({ contentful }) => contentful.fetchByContentType('blog'),
+  LoadingComponent: () => (
+    <div>
+      <Intro isLoading />
+      <Segment />
+      <Segment />
+    </div>
+  ),
 })(BlogList);
+
+export default inject('contentful')(blogListWithJob);

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Marked from 'marked';
+import ReactMarkdown from 'react-markdown';
 
 import s from './Copy.scss';
 
@@ -9,9 +9,10 @@ const Copy = ({ children }) => (
     <div className={s.copy__container}>
       <div className={s.copy__row}>
         <div className={s.copy__col}>
-          <p
+          <ReactMarkdown
+            skipHtml
             className={s.copy__text}
-            dangerouslySetInnerHTML={{ __html: Marked(children) }} // eslint-disable-line
+            source={children}
           />
         </div>
       </div>

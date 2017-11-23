@@ -1,36 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import s from './Author.scss';
 
-export default class Author extends Component {
+const Author = ({ name, bio, image, loading }) => (
+  <div className={s(s.author, { isLoading: loading })}>
+    <div className={s.author__container}>
+      <div className={s.author__row}>
+        <div className={s.author__col}>
+          <div className={s.author__block}>
+            <div className={s.author__image}>
+              {image && image.url && (
+                <img alt="" src={image.url} />
+              )}
+            </div>
 
-  static propTypes = {
-    data: PropTypes.object,
-  };
-
-  render() {
-    const { data } = this.props;
-
-    const { name, title, image } = data;
-
-    const hasUrl = image && image.file && image.file.url;
-
-    return (
-      <div className={s.author}>
-        {hasUrl ? (
-          <div className={s.author__image}>
-            <img
-              className={s.author__img}
-              src={image.file.url}
-              alt=""
-              role="presentation"
-            />
+            <div className={s.author__text}>
+              <p className={s.author__paragraph}>{name}</p>
+              <p className={s.author__paragraph}>{bio}</p>
+            </div>
           </div>
-        ) : null}
-        <div className={s.author__name}>{name}</div>
-        <div className={s.author__title}>{title}</div>
+        </div>
       </div>
-    );
-  }
-}
+    </div>
+  </div>
+);
+
+Author.propTypes = {
+  name: PropTypes.string,
+  bio: PropTypes.string,
+  image: PropTypes.shape({
+    url: PropTypes.string,
+  }),
+  loading: PropTypes.bool,
+};
+
+export default Author;

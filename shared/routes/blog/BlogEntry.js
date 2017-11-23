@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Route, Link } from 'react-router-dom';
 import Segment from 'components/segment';
 import Helmet from 'react-helmet';
+import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
-import Store from 'store';
 import isEmpty from 'lodash/isEmpty';
 
 import NotFound from 'routes/not-found';
@@ -26,6 +26,7 @@ class BlogEntry extends Component {
     return (
       <div>
         <Helmet title={blog.title} />
+
         <Segment>
           <Blog
             single
@@ -45,7 +46,11 @@ class BlogEntry extends Component {
   }
 }
 
-const contentful = new Store().contentful;
-export default withJob({
-  work: ({ match }) => contentful.fetchSingleByContentType('blog', { 'sys.id': match.params.id }),
+const blogEntryWithJob = withJob({
+  work: ({ contentful }) => contentful.fetchSingleByContentType('blog', { 'sys.id': match.params.id }),
+  LoadingComponent: () => (
+    <Segment />
+  ),
 })(BlogEntry);
+
+export default inject('contentful')(blogEntryWithJob);

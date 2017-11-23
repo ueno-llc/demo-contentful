@@ -9,11 +9,12 @@ import get from 'lodash/get';
 
 import NotFound from 'routes/not-found';
 
+import Copy from 'components/copy';
+
 import Article from './components/article';
 import Heading from './components/heading';
 import Intro from './components/intro';
 import Cover from './components/cover';
-import Copy from './components/copy';
 import Curator from './components/curator';
 
 class Product extends Component {
@@ -31,10 +32,7 @@ class Product extends Component {
 
     return (
       <div>
-        <Helmet
-          title={article.title.trim()}
-          meta={[{ name: 'description', content: article.introduction.trim() }]}
-        />
+        <Helmet title={article.title} />
 
         <Article>
           <Heading>{article.title}</Heading>

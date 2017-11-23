@@ -16,6 +16,7 @@ import Home from './routes/home';
 import About from './routes/about';
 import Products from './routes/products';
 import Blog from './routes/blog';
+import Contact from './routes/contact';
 import Search from './routes/search';
 import NotFound from './routes/not-found';
 
@@ -48,6 +49,7 @@ export default class App extends Component {
             <Route exact path="/about" component={About} />
             <Route path="/products" component={Products} />
             <Route path="/blog" component={Blog} />
+            <Route path="/contact-us" component={Contact} />
             <Route path="/search/:q" component={Search} />
             <Route component={NotFound} />
           </Switch>
