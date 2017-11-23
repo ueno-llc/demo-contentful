@@ -17,7 +17,7 @@ class Search extends Component {
   render() {
     const { history, jobResult, match } = this.props;
     const { q } = match.params;
-    const { count, res } = jobResult;
+    const { count, ...res } = jobResult;
 
     return (
       <div>
@@ -28,16 +28,19 @@ class Search extends Component {
           count={count}
           onSearch={value => history.push(`/search/${value}`)}
         >
-          <Group>
-            {res.map(({ id, title, intro, imageUrl }) => (
-              <Item
-                key={id}
-                title={title}
-                text={intro}
-                image={imageUrl}
-              />
-            ))}
-          </Group>
+          {Object.keys(res).map(key => (
+            <Group title={key}>
+              {res[key].map(({ id, title, intro, imageUrl }) => (
+                <Item
+                  key={id}
+                  title={title}
+                  text={intro}
+                  image={imageUrl}
+                  url={id}
+                />
+              ))}
+            </Group>
+          ))}
         </Results>
       </div>
     );

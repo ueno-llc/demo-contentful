@@ -1,6 +1,7 @@
 import { extendObservable } from 'mobx';
 import timing from 'utils/timing';
-import { parse } from 'utils/contentful';
+import { parse, linkResolver } from 'utils/contentful';
+import groupBy from 'lodash/groupBy';
 import get from 'lodash/get';
 
 import config from '../../config';
@@ -66,12 +67,13 @@ export default class Contentful {
       .then(res => res.map(m => ({
         id: m.id,
         title: m.title,
-        intro: m.introduction,
+        intro: m.introduction || m.intro,
         imageUrl: get(m, 'image.file.url'),
-        url: m.id,
+        url: linkResolver(m.id, m.contentType),
+        type: m.contentType,
       })))
       .then(res => ({
-        res,
+        ...groupBy(res, m => m.type || 'Others'),
         count: res.length,
       }))
       .catch((err) => {

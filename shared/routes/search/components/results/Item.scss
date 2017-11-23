@@ -1,6 +1,8 @@
 @import '~styles/config';
 
 .item {
+  @include reset-anchor;
+
   display: flex;
 
   padding: $gutter;
