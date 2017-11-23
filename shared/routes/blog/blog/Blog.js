@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Segment from 'components/segment';
 import Helmet from 'react-helmet';
 import { inject } from 'mobx-react';
@@ -10,7 +10,7 @@ import get from 'lodash/get';
 
 import NotFound from 'routes/not-found';
 
-import Content, { Heading, Intro, Cover, Copy, Curator, Author } from 'components/content';
+import Content, { Heading, Intro, Cover, Copy, Author } from 'components/content';
 
 class Blog extends Component {
 

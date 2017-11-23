@@ -28,7 +28,7 @@ export default class Articles extends Component {
 
             {articles && (
               <ul className={s.articles__list}>
-                {articles.slice(0, show).map(({ id, title, date, intro }, i) => (
+                {articles.slice(0, show).map(({ id, title: ArticleTitle, date, intro }, i) => (
                   <li
                     className={s.articles__item}
                     key={`article-${i}`} // eslint-disable-line
@@ -37,7 +37,7 @@ export default class Articles extends Component {
                       <p className={s.articles__date}>{format(date, 'DD MMMM')}</p>
 
                       <div className={s.articles__inner}>
-                        <h2 className={s.articles__title}>{title}</h2>
+                        <h2 className={s.articles__title}>{ArticleTitle}</h2>
                         <p className={s.articles__description}>{intro}</p>
                         <span className={s.articles__button}>Read more</span>
                       </div>
