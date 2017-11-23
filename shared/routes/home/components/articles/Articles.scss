@@ -145,15 +145,17 @@
     }
   }
 
-  &__image {
+  &__button {
+    @include responsive-font(12, 14);
     @include grid-col(4);
 
     margin-top: 20px;
 
-    height: 100%;
+    color: #333;
+    font-weight: 700;
 
     @media (min-width: $min-720) {
-      @include grid-col(2);
+      @include grid-col(1);
 
       margin-top: 2px;
     }

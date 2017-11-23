@@ -233,7 +233,6 @@ const values = {
       '*.facebook.com',
       '*.google-analytics.com',
       't.co',
-      'iso.500px.com',
     ],
     mediaSrc: [],
     manifestSrc: [],

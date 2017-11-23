@@ -4,15 +4,13 @@ import PropTypes from 'prop-types';
 import s from './Author.scss';
 
 const Author = ({ name, bio, image, loading }) => (
-  <div className={s(s.author, { isLoading: loading })}>
+  <div className={s(s.author, { loading })}>
     <div className={s.author__container}>
       <div className={s.author__row}>
         <div className={s.author__col}>
           <div className={s.author__block}>
             <div className={s.author__image}>
-              {image && image.url && (
-                <img alt="" src={image.url} />
-              )}
+              {image && <img alt={name} src={image} />}
             </div>
 
             <div className={s.author__text}>

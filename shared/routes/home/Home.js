@@ -6,6 +6,7 @@ import Helmet from 'react-helmet';
 
 import Segment from 'components/segment';
 import Button from 'components/button';
+import List, { Item } from 'components/list';
 
 import Hero from './components/hero';
 import IntroText from './components/intro-text';
@@ -20,7 +21,7 @@ class Home extends Component {
 
   render() {
     const { jobResult: home } = this.props;
-    const { intro, productsList, ...rest } = home;
+    const { intro, productsList, blogList, ...rest } = home;
 
     return (
       <div>
@@ -32,10 +33,25 @@ class Home extends Component {
           <IntroText>{intro}</IntroText>
         </Segment>
 
-        <Articles
+        <List
           title="Our products"
           subheading="We love them"
-          articles={productsList}
+        >
+          {productsList.map(({ id, title: productTitle, introduction, image }) => (
+            <Item
+              key={id}
+              title={productTitle}
+              intro={introduction}
+              image={image}
+              url={`/products/${id}`}
+            />
+          ))}
+        </List>
+
+        <Articles
+          title="From our lovely people"
+          subheading="They love to write"
+          articles={blogList}
           show={4}
         />
 

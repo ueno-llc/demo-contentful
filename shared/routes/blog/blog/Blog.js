@@ -6,11 +6,13 @@ import Helmet from 'react-helmet';
 import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
 import isEmpty from 'lodash/isEmpty';
+import get from 'lodash/get';
 
 import NotFound from 'routes/not-found';
-import Blog from 'components/blog';
 
-class BlogEntry extends Component {
+import Content, { Heading, Intro, Cover, Copy, Curator, Author } from 'components/content';
+
+class Blog extends Component {
 
   static propTypes = {
     jobResult: PropTypes.object,
@@ -27,30 +29,28 @@ class BlogEntry extends Component {
       <div>
         <Helmet title={blog.title} />
 
-        <Segment>
-          <Blog
-            single
-            key={blog.id}
-            id={blog.id}
-            title={blog.title}
-            intro={blog.intro}
-            text={blog.text}
-            author={blog.author}
-            date={blog.date}
+        <Content>
+          <Author
+            name={blog.author.name}
+            bio={blog.author.title}
+            image={get(blog, 'author.image.file.url')}
           />
 
-          <p><Link to="/blog">Back to blog</Link></p>
-        </Segment>
+          <Heading>{blog.title}</Heading>
+          <Intro>{blog.intro}</Intro>
+          <Cover>{blog.image}</Cover>
+          <Copy>{blog.text}</Copy>
+        </Content>
       </div>
     );
   }
 }
 
-const blogEntryWithJob = withJob({
+const blogWithJob = withJob({
   work: ({ contentful, match }) => contentful.fetchSingleByContentType('blog', { 'sys.id': match.params.id }),
   LoadingComponent: () => (
     <Segment />
   ),
-})(BlogEntry);
+})(Blog);
 
-export default inject('contentful')(blogEntryWithJob);
+export default inject('contentful')(blogWithJob);

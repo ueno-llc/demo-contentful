@@ -9,13 +9,7 @@ import get from 'lodash/get';
 
 import NotFound from 'routes/not-found';
 
-import Copy from 'components/copy';
-
-import Article from './components/article';
-import Heading from './components/heading';
-import Intro from './components/intro';
-import Cover from './components/cover';
-import Curator from './components/curator';
+import Article, { Heading, Intro, Cover, Copy, Curator } from 'components/content';
 
 class Product extends Component {
 

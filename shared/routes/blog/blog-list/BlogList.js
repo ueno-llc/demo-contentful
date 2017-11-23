@@ -31,12 +31,12 @@ class BlogList extends Component {
         </Intro>
 
         <List>
-          {blogs.map(({ id, title, intro }) => (
+          {blogs.map(({ id, title, intro, thumbnail }) => (
             <Item
               key={id}
               title={title}
               intro={intro}
-              image={{ file: { url: 'https://iso.500px.com/wp-content/uploads/2014/12/500px-article-header.jpg' } }}
+              image={thumbnail}
               url={`/blog/${id}`}
             />
           ))}

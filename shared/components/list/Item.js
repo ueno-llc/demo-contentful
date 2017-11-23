@@ -22,7 +22,11 @@ export default class Item extends PureComponent {
         <Link to={url} className={s.item__block}>
           <div className={s.item__top}>
             <div className={s.item__image}>
-              {image && <img src={get(image, 'file.url')} alt={title} />}
+              {image ? (
+                <img src={get(image, 'file.url')} alt={title} />
+              ) : (
+                <div className={s.item__placeholder} />
+              )}
             </div>
           </div>
 

@@ -3,6 +3,8 @@
 @import '~styles/config';
 
 .copy {
+  margin-top: $gutter * 2;
+
   &__container {
     @include container;
   }

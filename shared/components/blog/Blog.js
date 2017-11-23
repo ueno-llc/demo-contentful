@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import Author from 'components/author';
+
+import { Author } from 'components/content';
+
 import s from './Blog.scss';
 
 /**
