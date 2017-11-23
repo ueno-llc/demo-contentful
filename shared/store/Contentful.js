@@ -20,16 +20,14 @@ export default class Contentful {
   }
 
   query(data = {}) {
-    const query = Object.entries(data)
+    return Object
+      .entries(data)
       .map(q => q.map(encodeURIComponent).join('=')).join('&');
-
-    return query;
   }
 
   @timing.promise
   fetchByContentType(contentType, query = {}) {
     const q = this.query(query);
-
     const url = `${apiUrl}/contentful/${contentType}?${q}`;
 
     return this.fetch(url, { force: true })
@@ -68,8 +66,9 @@ export default class Contentful {
       .then(res => res.map(m => ({
         id: m.id,
         title: m.title,
-        description: m.description,
+        intro: m.introduction,
         imageUrl: get(m, 'image.file.url'),
+        url: m.id,
       })))
       .then(res => ({
         res,

@@ -33,9 +33,7 @@ export default class Intro extends Component {
         <div className={s.intro__container}>
           <div className={s.intro__row}>
             <div className={s.intro__col}>
-              {isLoading ? (this.loadingContent())
-                : (children)
-              }
+              {isLoading ? this.loadingContent() : children}
             </div>
           </div>
         </div>

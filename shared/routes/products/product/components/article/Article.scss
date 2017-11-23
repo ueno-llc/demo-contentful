@@ -1,0 +1,11 @@
+@import '~styles/config';
+
+.article {
+  @include segment;
+
+  &__slices {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

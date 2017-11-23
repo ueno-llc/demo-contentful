@@ -1,6 +1,6 @@
 @import '~styles/config';
 
-.heading {
+.intro {
   &__container {
     @include container;
   }
@@ -23,14 +23,19 @@
     }
   }
 
-  h1 {
-    @include h1;
-    margin-bottom: 0;
-  }
+  &__title {
+    @include h4;
 
-  &.isLoading h1 { // stylelint-disable-line
-    width: 100%;
-    height: 1em;
-    @include loadingText;
+    margin-top: $gutter * 0.5;
+    margin-bottom: 0;
+
+    color: $color-light;
+
+    &.loading {
+      @include loadingText;
+
+      width: 100%;
+      height: 1em;
+    }
   }
 }

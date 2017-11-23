@@ -7,6 +7,7 @@ import { inject } from 'mobx-react';
 import Results, { Group, Item } from './components/results';
 
 class Search extends Component {
+
   static propTypes = {
     history: PropTypes.object,
     jobResult: PropTypes.object,
@@ -28,12 +29,12 @@ class Search extends Component {
           onSearch={value => history.push(`/search/${value}`)}
         >
           <Group>
-            {res.map(r => (
+            {res.map(({ id, title, intro, imageUrl }) => (
               <Item
-                key={r.id}
-                title={r.title}
-                text={r.description}
-                image={r.imageUrl}
+                key={id}
+                title={title}
+                text={intro}
+                image={imageUrl}
               />
             ))}
           </Group>

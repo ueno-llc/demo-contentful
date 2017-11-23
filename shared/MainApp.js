@@ -46,7 +46,7 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/about" component={About} />
-            <Route exact path="/products" component={Products} />
+            <Route path="/products" component={Products} />
             <Route path="/blog" component={Blog} />
             <Route path="/search/:q" component={Search} />
             <Route component={NotFound} />

@@ -37,7 +37,7 @@ export default class Articles extends Component {
 
                       <div className={s.articles__inner}>
                         <h2 className={s.articles__title}>{article.title}</h2>
-                        <p className={s.articles__description}>{article.description}</p>
+                        <p className={s.articles__description}>{article.introduction}</p>
 
                         <img
                           className={s.articles__image}

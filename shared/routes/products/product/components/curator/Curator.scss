@@ -1,0 +1,82 @@
+@import '~styles/config';
+
+.curator {
+  &__container {
+    @include container;
+  }
+
+  &__row {
+    @include grid-row;
+  }
+
+  &__col {
+    @include grid-col;
+
+    @media (min-width: $min-tablet) {
+      @include grid-col(8);
+      @include grid-offset-left(2);
+    }
+
+    @media (min-width: $min-desktop) {
+      @include grid-col(6);
+      @include grid-offset-left(3);
+    }
+  }
+
+  &__block {
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    margin: $gutter 0 $gutter * 1.5;
+    padding-top: $gutter * 2.5;
+
+    border-top: 1px solid $color-placeholder;
+  }
+
+  &__image {
+    flex: 0 0 auto;
+
+    margin-right: 1em;
+
+    width: 72px;
+    height: 72px;
+
+    overflow: hidden;
+    border-radius: 50%;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding-right: 100px;
+  }
+
+  &__paragraph {
+    @include reset-paragraph;
+    @include responsive-font(14, 16);
+
+    font-weight: 200;
+
+    &:first-child {
+      font-weight: 400;
+    }
+  }
+
+  &__tag {
+    position: absolute;
+    right: 0;
+
+    padding: 0.5em 0.6em 0.3em;
+
+    text-transform: uppercase;
+    font-size: 12px;
+
+    background-color: $color-light;
+    color: #fff;
+    border-radius: 2px;
+  }
+}

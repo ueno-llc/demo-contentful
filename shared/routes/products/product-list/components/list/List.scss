@@ -1,0 +1,14 @@
+@import '~styles/config';
+
+.list {
+  @include segment;
+
+  &__container {
+    @include container;
+  }
+
+  &__items {
+    @include reset-list;
+    @include grid-row;
+  }
+}
