@@ -9,7 +9,7 @@ import get from 'lodash/get';
 
 import NotFound from 'routes/not-found';
 
-import Article, { Heading, Intro, Cover, Copy, Curator } from 'components/content';
+import Content, { Heading, Intro, Cover, Copy, Curator } from 'components/content';
 
 class Product extends Component {
 
@@ -28,7 +28,7 @@ class Product extends Component {
       <div>
         <Helmet title={article.title} />
 
-        <Article>
+        <Content>
           <Heading>{article.title}</Heading>
           <Intro>{article.introduction}</Intro>
           <Cover>{article.coverImage}</Cover>
@@ -41,7 +41,7 @@ class Product extends Component {
               image={get(article.curatorImage, 'file.url')}
             />
           )}
-        </Article>
+        </Content>
       </div>
     );
   }
@@ -50,10 +50,10 @@ class Product extends Component {
 const productWithJob = withJob({
   work: ({ contentful, match }) => contentful.fetchSingleByContentType('product', { 'sys.id': match.params.id }),
   LoadingComponent: () => (
-    <Article>
+    <Content>
       <Heading loading />
       <Intro loading />
-    </Article>
+    </Content>
   ),
 })(Product);
 

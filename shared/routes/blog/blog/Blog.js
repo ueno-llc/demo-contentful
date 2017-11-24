@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import Segment from 'components/segment';
 import Helmet from 'react-helmet';
 import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
@@ -49,7 +48,12 @@ class Blog extends Component {
 const blogWithJob = withJob({
   work: ({ contentful, match }) => contentful.fetchSingleByContentType('blog', { 'sys.id': match.params.id }),
   LoadingComponent: () => (
-    <Segment />
+    <Content>
+      <Author isLoading />
+      <Heading isLoading />
+      <Intro isLoading />
+      <Cover isLoading />
+    </Content>
   ),
 })(Blog);
 

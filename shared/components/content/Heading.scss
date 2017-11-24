@@ -27,10 +27,4 @@
     @include h1;
     margin-bottom: 0;
   }
-
-  &.isLoading h1 { // stylelint-disable-line
-    width: 100%;
-    height: 1em;
-    @include loadingText;
-  }
 }

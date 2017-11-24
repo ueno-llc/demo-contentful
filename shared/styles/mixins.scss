@@ -227,30 +227,31 @@
   }
 }
 
-@keyframes placeHolderShimmer{
-  0%{
-    background-position: -468px 0
+@keyframes placeholder {
+  0% {
+    background-position: -600px 0;
   }
-  100%{
-    background-position: 468px 0
+
+  100% {
+    background-position: 600px 0;
   }
 }
 
-@mixin loadingText {
+@mixin loading {
   position: relative;
 
   display: inline-block;
 
   margin-bottom: 0.3em;
 
-  background: #f6f7f8;
-  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
-  background-size: 800px 104px;
+  background: $color-background-loading;
+  background: linear-gradient(to right, $color-background-loading 0%, #ededed 50%, $color-background-loading 100%);
+  background-size: 1200px 104px;
   color: transparent;
 
   animation-duration: 1s;
   animation-fill-mode: forwards;
   animation-iteration-count: infinite;
-  animation-name: placeHolderShimmer;
+  animation-name: placeholder;
   animation-timing-function: linear;
 }

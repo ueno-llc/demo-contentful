@@ -12,7 +12,7 @@ export default class Hero extends Component {
     isLoading: PropTypes.bool,
   }
 
-  loadingContent() {
+  get loading() {
     return (
       <div>
         <h1>Loading Loading</h1>
@@ -34,7 +34,7 @@ export default class Hero extends Component {
         <div className={s.hero__container}>
           <div className={s.hero__row}>
             <div className={s.hero__col}>
-              {isLoading ? this.loadingContent() : children}
+              {isLoading ? this.loading : children}
             </div>
           </div>
         </div>

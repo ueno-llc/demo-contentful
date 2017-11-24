@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Segment from 'components/segment';
 import Helmet from 'react-helmet';
 import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
@@ -51,8 +50,6 @@ const blogListWithJob = withJob({
   LoadingComponent: () => (
     <div>
       <Hero isLoading />
-      <Segment />
-      <Segment />
     </div>
   ),
 })(BlogList);

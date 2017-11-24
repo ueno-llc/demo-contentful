@@ -59,13 +59,11 @@
     }
   }
 
-  &.loading &__image {
-    @include loadingText;
-  }
+  &.isLoading &__paragraph {
+    @include loading;
 
-  &.loading &__paragraph {
-    @include loadingText;
     margin-bottom: 0.5rem;
+
     height: 1.5rem;
     width: 100px;
 

@@ -4,7 +4,6 @@ import { withJob } from 'react-jobs';
 import Helmet from 'react-helmet';
 import { inject } from 'mobx-react';
 
-import Segment from 'components/segment';
 import Hero from 'components/hero';
 import List, { Item } from 'components/list';
 
@@ -37,7 +36,7 @@ class ProductList extends Component {
           started thinking about how we can keep being ourselves, even as we grow and change.</p>
         </Hero>
 
-        <List>
+        <List isLoading>
           {products.map(({ id, title: productTitle, introduction, image }) => (
             <Item
               key={id}
@@ -58,8 +57,7 @@ const productListWithJob = withJob({
   LoadingComponent: () => (
     <div>
       <Hero isLoading />
-      <Segment />
-      <Segment />
+      <List isLoading />
     </div>
   ),
 })(ProductList);

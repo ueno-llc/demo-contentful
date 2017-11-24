@@ -46,10 +46,6 @@
 
   h2 {
     @include subheading;
-
-    .isLoading & {
-      @include loadingText;
-    }
   }
 
   p {
@@ -68,20 +64,20 @@
   }
 
   &.isLoading h1 {
-    @include loadingText;
+    @include loading;
 
     line-height: 0.77em;
   }
 
   &.isLoading h2 {
-    @include loadingText;
+    @include loading;
 
     margin-bottom: 0.8em;
     line-height: 0.77em;
   }
 
   &.isLoading p {
-    @include loadingText;
+    @include loading;
 
     margin-bottom: 1em;
     font-size: 16px;

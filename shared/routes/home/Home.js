@@ -83,6 +83,7 @@ const homeWithJob = withJob({
   LoadingComponent: () => (
     <div>
       <Hero background="#93cfe3" isLoading />
+      <Intro isLoading />
     </div>
   ),
 })(Home);

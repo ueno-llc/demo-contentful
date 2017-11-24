@@ -1,23 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import Loading from 'components/loading';
 
 import s from './Heading.scss';
 
-const Heading = ({ children, loading }) => (
-  <div className={s(s.heading, { isLoading: loading })}>
-    <div className={s.heading__container}>
-      <div className={s.heading__row}>
-        <div className={s.heading__col}>
-          <h1>{children}</h1>
+export class Heading extends Component {
+
+  static propTypes = {
+    children: PropTypes.node,
+    isLoading: PropTypes.bool,
+  }
+
+  get loading() {
+    return <Loading component="heading" />;
+  }
+
+  render() {
+    const { children, isLoading } = this.props;
+
+    return (
+      <div className={s.heading}>
+        <div className={s.heading__container}>
+          <div className={s.heading__row}>
+            <div className={s.heading__col}>
+              {isLoading ? this.loading : <h1>{children}</h1>}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-);
-
-Heading.propTypes = {
-  children: PropTypes.node,
-  loading: PropTypes.bool,
-};
+    );
+  }
+}
 
 export default Heading;

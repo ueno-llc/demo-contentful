@@ -1,0 +1,36 @@
+@import '~styles/config';
+
+.image {
+  display: block;
+
+  position: relative;
+
+  background: $color-background-loading;
+
+  overflow: hidden;
+
+  &.loaded::before {
+    animation-play-state: paused;
+  }
+
+  &__ratio {
+    display: block;
+  }
+
+  &__image {
+    @include fit;
+
+    z-index: 1;
+
+    opacity: 0;
+
+    min-width: 100%;
+
+    will-change: opacity;
+    transition: opacity 500ms;
+  }
+
+  &.loaded &__image {
+    opacity: 1;
+  }
+}

@@ -6,7 +6,6 @@ import { inject } from 'mobx-react';
 import ReactMarkdown from 'react-markdown';
 
 import Hero from 'components/hero';
-import Segment from 'components/segment';
 
 class About extends Component {
 
@@ -31,9 +30,7 @@ class About extends Component {
           digital products, brands, and experiences.</p>
         </Hero>
 
-        <Segment>
-          <ReactMarkdown skipHtml source={text} />
-        </Segment>
+        <ReactMarkdown skipHtml source={text} />
       </div>
     );
   }
@@ -44,8 +41,6 @@ const aboutWithJob = withJob({
   LoadingComponent: () => (
     <div>
       <Hero isLoading />
-      <Segment />
-      <Segment />
     </div>
   ),
 })(About);
