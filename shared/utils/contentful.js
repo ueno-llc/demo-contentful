@@ -52,10 +52,20 @@ function linkResolver(id, type) {
   }
 
   switch (type) {
+    case 'home':
+      return '/';
+    case 'about':
+      return '/about';
+    case 'contact':
+      return '/contact-us';
+    case 'products':
+      return '/products';
     case 'product':
       return `/products/${id}`;
     case 'blog':
       return `/blog/${id}`;
+    case 'author':
+      return undefined;
     default:
       return '/';
   }

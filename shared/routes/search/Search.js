@@ -29,14 +29,14 @@ class Search extends Component {
           onSearch={value => history.push(`/search/${value}`)}
         >
           {Object.keys(res).map(key => (
-            <Group title={key}>
-              {res[key].map(({ id, title, intro, imageUrl }) => (
+            <Group key={key} title={key}>
+              {res[key].map(({ id, title, intro, imageUrl, url }) => (
                 <Item
                   key={id}
                   title={title}
                   text={intro}
                   image={imageUrl}
-                  url={id}
+                  url={url}
                 />
               ))}
             </Group>

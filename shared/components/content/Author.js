@@ -27,9 +27,7 @@ const Author = ({ name, bio, image, loading }) => (
 Author.propTypes = {
   name: PropTypes.string,
   bio: PropTypes.string,
-  image: PropTypes.shape({
-    url: PropTypes.string,
-  }),
+  image: PropTypes.string,
   loading: PropTypes.bool,
 };
 

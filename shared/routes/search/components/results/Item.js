@@ -16,14 +16,25 @@ export default class Group extends PureComponent {
   render() {
     const { url, image, title, text } = this.props;
 
+    const content = [
+      <img key="image" className={s.item__image} src={image} alt={title} />,
+      <div key="infos" className={s.item__infos}>
+        <h4 className={s.item__title}>{title}</h4>
+        <p className={s.item__text}>{text}</p>
+      </div>,
+    ];
+
+    if (!url) {
+      return (
+        <div className={s.item}>
+          {content}
+        </div>
+      );
+    }
+
     return (
       <Link to={url} className={s.item}>
-        <img className={s.item__image} src={image} alt={title} />
-
-        <div className={s.item__infos}>
-          <h4 className={s.item__title}>{title}</h4>
-          <p className={s.item__text}>{text}</p>
-        </div>
+        {content}
       </Link>
     );
   }
