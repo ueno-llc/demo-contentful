@@ -9,7 +9,7 @@ import Button from 'components/button';
 import List, { Item } from 'components/list';
 
 import Hero from './components/hero';
-import IntroText from './components/intro-text';
+import Intro from './components/intro';
 import Articles from './components/articles';
 import Cta from './components/cta';
 
@@ -29,9 +29,11 @@ class Home extends Component {
 
         <Hero {...rest} />
 
-        <Segment>
-          <IntroText>{intro}</IntroText>
-        </Segment>
+        <Intro
+          heading="Who we are, and who we want to be"
+          subheading="A few things you should know about Ueno"
+          copy={intro}
+        />
 
         <List
           title="Our products"
@@ -69,8 +71,6 @@ const homeWithJob = withJob({
   LoadingComponent: () => (
     <div>
       <Hero isLoading />
-      <Segment />
-      <Segment />
     </div>
   ),
 })(Home);

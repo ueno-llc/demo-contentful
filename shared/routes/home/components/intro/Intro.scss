@@ -1,0 +1,28 @@
+@import '~styles/config';
+
+.intro {
+  @include segment;
+
+  &__container {
+    @include container;
+  }
+
+  &__heading {
+    @include h2;
+    margin: 0;
+  }
+
+  &__heading + &__heading {
+    @include subheading(26, 42);
+    margin-bottom: $gutter * 2;
+  }
+
+  &__content {
+    @include reset-paragraph;
+    @include responsive-font(16, 22);
+
+    font-weight: 300;
+
+    column-count: 2;
+  }
+}
