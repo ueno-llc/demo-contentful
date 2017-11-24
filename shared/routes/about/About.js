@@ -5,7 +5,7 @@ import { withJob } from 'react-jobs';
 import { inject } from 'mobx-react';
 import ReactMarkdown from 'react-markdown';
 
-import Intro from 'components/intro';
+import Hero from 'components/hero';
 import Segment from 'components/segment';
 
 class About extends Component {
@@ -22,14 +22,14 @@ class About extends Component {
       <div>
         <Helmet title={title} />
 
-        <Intro>
+        <Hero>
           <h1>Such Ueno.</h1>
           <h2>Very digital. Much agency.</h2>
           <p>Ueno is a full-service, first-rate, all-singing, all-dancing, fast-growing,
           flame-haired, bull-chested, fun-loving, not-quite-bourgeois,
           not-quite-bohemian agency, busy designing and building beautiful
           digital products, brands, and experiences.</p>
-        </Intro>
+        </Hero>
 
         <Segment>
           <ReactMarkdown skipHtml source={text} />
@@ -43,7 +43,7 @@ const aboutWithJob = withJob({
   work: ({ contentful }) => contentful.fetchSingleByContentType('about'),
   LoadingComponent: () => (
     <div>
-      <Intro isLoading />
+      <Hero isLoading />
       <Segment />
       <Segment />
     </div>

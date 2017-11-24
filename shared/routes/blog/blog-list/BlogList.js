@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
 
-import Intro from 'components/intro';
+import Hero from 'components/hero';
 import List, { Item } from 'components/list';
 
 class BlogList extends Component {
@@ -21,14 +21,14 @@ class BlogList extends Component {
       <div>
         <Helmet title="Blog" />
 
-        <Intro>
+        <Hero>
           <h1>Words of wisdom</h1>
           <h2>More than you ever wanted to know</h2>
           <p>Here’s the thing. As Ueno has gone from one bearded guy in his living
           room to more than 50 people of 20 nationalities in four offices with
           real tables and chairs, we’ve started thinking about how we can keep
           being ourselves, even as we grow and change.</p>
-        </Intro>
+        </Hero>
 
         <List>
           {blogs.map(({ id, title, intro, thumbnail }) => (
@@ -50,7 +50,7 @@ const blogListWithJob = withJob({
   work: ({ contentful }) => contentful.fetchByContentType('blog'),
   LoadingComponent: () => (
     <div>
-      <Intro isLoading />
+      <Hero isLoading />
       <Segment />
       <Segment />
     </div>

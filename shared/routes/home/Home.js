@@ -4,11 +4,10 @@ import { withJob } from 'react-jobs';
 import { inject } from 'mobx-react';
 import Helmet from 'react-helmet';
 
-import Segment from 'components/segment';
 import Button from 'components/button';
 import List, { Item } from 'components/list';
+import Hero from 'components/hero';
 
-import Hero from './components/hero';
 import Intro from './components/intro';
 import Articles from './components/articles';
 import Cta from './components/cta';
@@ -21,13 +20,26 @@ class Home extends Component {
 
   render() {
     const { jobResult: home } = this.props;
-    const { intro, productsList, blogList, ...rest } = home;
+
+    const {
+      intro,
+      productsList,
+      blogList,
+      heroColor,
+      heroTitle,
+      heroSubheading,
+      heroDescription,
+    } = home;
 
     return (
       <div>
         <Helmet title="Home" />
 
-        <Hero {...rest} />
+        <Hero color="white" background={heroColor}>
+          <h1>{heroTitle}</h1>
+          <h2>{heroSubheading}</h2>
+          <p>{heroDescription}</p>
+        </Hero>
 
         <Intro
           heading="Who we are, and who we want to be"
@@ -70,7 +82,7 @@ const homeWithJob = withJob({
   work: ({ contentful }) => contentful.fetchSingleByContentType('home'),
   LoadingComponent: () => (
     <div>
-      <Hero isLoading />
+      <Hero background="#93cfe3" isLoading />
     </div>
   ),
 })(Home);

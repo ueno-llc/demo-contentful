@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import { inject } from 'mobx-react';
 
 import Segment from 'components/segment';
-import Intro from 'components/intro';
+import Hero from 'components/hero';
 import List, { Item } from 'components/list';
 
 class ProductList extends Component {
@@ -29,13 +29,13 @@ class ProductList extends Component {
       <div>
         <Helmet title={title} />
 
-        <Intro>
+        <Hero>
           <h1>Our products</h1>
           <h2>More than you ever wanted to see</h2>
           <p>Here’s the thing. As Ueno has gone from one bearded guy in his living room to more
           than 50 people of 20 nationalities in four offices with real tables and chairs, we’ve
           started thinking about how we can keep being ourselves, even as we grow and change.</p>
-        </Intro>
+        </Hero>
 
         <List>
           {products.map(({ id, title: productTitle, introduction, image }) => (
@@ -57,7 +57,7 @@ const productListWithJob = withJob({
   work: ({ contentful }) => contentful.fetchSingleByContentType('pageProducts'),
   LoadingComponent: () => (
     <div>
-      <Intro isLoading />
+      <Hero isLoading />
       <Segment />
       <Segment />
     </div>

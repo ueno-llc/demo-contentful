@@ -1,8 +1,22 @@
+/* stylelint-disable selector-max-type */
+
 @import '~styles/config';
 
-.intro {
+.hero {
   @include segment;
+
   background-color: #fafafa;
+
+  &.white {
+    h1,
+    p {
+      color: #fff;
+    }
+
+    h2 {
+      color: rgba(255, 255, 255, 0.65);
+    }
+  }
 
   &__container {
     @include container;
@@ -26,6 +40,7 @@
 
   h1 {
     @include heading;
+
     margin-bottom: 0;
   }
 

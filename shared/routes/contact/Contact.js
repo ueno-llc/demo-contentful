@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
-import Intro from 'components/intro';
+import Hero from 'components/hero';
 import Segment from 'components/segment';
 
 import Success from './components/success';
@@ -31,11 +31,11 @@ export default class Contact extends PureComponent {
       <div>
         <Helmet title="Contact us" />
 
-        <Intro>
+        <Hero>
           <h1>Contact us</h1>
           <h2>We are kind</h2>
           <p>Go ahead. We’re all ears.</p>
-        </Intro>
+        </Hero>
 
         <Segment>
           {this.success ? (
