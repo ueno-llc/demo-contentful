@@ -50,6 +50,7 @@ const blogListWithJob = withJob({
   LoadingComponent: () => (
     <div>
       <Hero isLoading />
+      <List isLoading />
     </div>
   ),
 })(BlogList);

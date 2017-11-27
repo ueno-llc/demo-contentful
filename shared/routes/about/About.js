@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { withJob } from 'react-jobs';
 import { inject } from 'mobx-react';
-import ReactMarkdown from 'react-markdown';
 
 import Hero from 'components/hero';
+import List, { Item } from 'components/list';
 
 class About extends Component {
 
@@ -14,8 +14,9 @@ class About extends Component {
   }
 
   render() {
-    const { jobResult: about } = this.props;
-    const { title, text } = about;
+    const { title, people } = this.props.jobResult;
+
+    console.log('-people', people);
 
     return (
       <div>
@@ -30,7 +31,16 @@ class About extends Component {
           digital products, brands, and experiences.</p>
         </Hero>
 
-        <ReactMarkdown skipHtml source={text} />
+        <List>
+          {people.map(({ id, name, title, image }) => (
+            <Item
+              key={id}
+              title={name}
+              intro={title}
+              image={image}
+            />
+          ))}
+        </List>
       </div>
     );
   }
@@ -41,6 +51,7 @@ const aboutWithJob = withJob({
   LoadingComponent: () => (
     <div>
       <Hero isLoading />
+      <List isLoading />
     </div>
   ),
 })(About);
