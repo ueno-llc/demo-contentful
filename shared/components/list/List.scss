@@ -26,4 +26,8 @@
     @include reset-list;
     @include grid-row;
   }
+
+  &__loading {
+    @include grid-col(4);
+  }
 }

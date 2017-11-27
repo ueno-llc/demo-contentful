@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import range from 'lodash/range';
 
 import Loading from 'components/loading';
 
@@ -27,11 +28,18 @@ export default class List extends PureComponent {
       ];
     }
 
-    return [
-      <Loading key="item1" component="portraitImage" />,
-      <Loading key="item2" component="portraitImage" />,
-      <Loading key="item3" component="portraitImage" />,
-    ];
+    return (
+      <div className={s.list__items}>
+        {range(3).map((c, i) => (
+          <li
+            key={`loading-item-${i}`} // eslint-disable-line
+            className={s.list__loading}
+          >
+            <Loading component="portraitImage" />
+          </li>
+        ))}
+      </div>
+    );
   }
 
   render() {

@@ -36,7 +36,7 @@ class ProductList extends Component {
           started thinking about how we can keep being ourselves, even as we grow and change.</p>
         </Hero>
 
-        <List isLoading>
+        <List>
           {products.map(({ id, title: productTitle, introduction, image }) => (
             <Item
               key={id}
