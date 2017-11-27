@@ -32,7 +32,7 @@ class Blog extends Component {
           <Author
             name={blog.author.name}
             bio={blog.author.title}
-            image={get(blog, 'author.image.file.url')}
+            image={`${blog.author.image.file.url}?w=80&h=80&fit=fill&f=face`}
           />
 
           <Heading>{blog.title}</Heading>

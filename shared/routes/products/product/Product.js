@@ -34,11 +34,11 @@ class Product extends Component {
           <Cover>{article.coverImage}</Cover>
           <Copy>{article.description}</Copy>
 
-          {article.curatorName && (
+          {article.curator.name && (
             <Curator
-              name={article.curatorName}
-              bio={article.curatorBio}
-              image={get(article.curatorImage, 'file.url')}
+              name={article.curator.name}
+              bio={article.curator.title}
+              image={`${article.curator.image.file.url}?w=80&h=80&fit=fill&f=face`}
             />
           )}
         </Content>
