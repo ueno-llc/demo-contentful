@@ -16,8 +16,6 @@ class About extends Component {
   render() {
     const { title, people } = this.props.jobResult;
 
-    console.log('-people', people);
-
     return (
       <div>
         <Helmet title={title} />
@@ -32,11 +30,11 @@ class About extends Component {
         </Hero>
 
         <List>
-          {people.map(({ id, name, title, image }) => (
+          {people.map(({ id, name, title: PeopleBio, image }) => (
             <Item
               key={id}
               title={name}
-              intro={title}
+              intro={PeopleBio}
               image={image}
             />
           ))}

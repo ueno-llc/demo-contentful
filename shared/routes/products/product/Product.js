@@ -5,7 +5,6 @@ import Helmet from 'react-helmet';
 import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
 import isEmpty from 'lodash/isEmpty';
-import get from 'lodash/get';
 
 import NotFound from 'routes/not-found';
 

@@ -31,7 +31,7 @@ export default class Item extends PureComponent {
       <div key="middle" className={s.item__middle}>
         <div className={s.item__title}>{title}</div>
         <div className={s.item__description}>{intro}</div>
-      </div>,,
+      </div>,
     ];
 
     const content = url ? (

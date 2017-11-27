@@ -11,6 +11,7 @@ export default class Intro extends Component {
     heading: PropTypes.string,
     subheading: PropTypes.string,
     copy: PropTypes.string,
+    isLoading: PropTypes.bool,
   }
 
   get loading() {

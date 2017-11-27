@@ -12,6 +12,7 @@ export default class Curator extends Component {
     name: PropTypes.string,
     bio: PropTypes.string,
     image: PropTypes.string,
+    isLoading: PropTypes.bool,
   }
 
   get loading() {
