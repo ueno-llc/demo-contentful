@@ -37,9 +37,16 @@ export default class Navigation extends PureComponent {
   }
 
   link(c) {
+    const { isMobile } = this.state;
+    const evt = { className: s.navigation__link };
+
+    if (isMobile) {
+      evt.onClick = this.toggleMenu;
+    }
+
     return (
       <li className={s.navigation__item}>
-        {React.cloneElement(c, { className: s.navigation__link })}
+        {React.cloneElement(c, { ...evt })}
       </li>
     );
   }
