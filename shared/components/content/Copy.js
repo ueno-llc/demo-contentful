@@ -28,7 +28,7 @@ export default class Copy extends Component {
     const { children, isLoading } = this.props;
 
     return (
-      <div className={s(s.copy, { isLoading })}>
+      <div className={s.copy}>
         <div className={s.copy__container}>
           <div className={s.copy__row}>
             <div className={s.copy__col}>
