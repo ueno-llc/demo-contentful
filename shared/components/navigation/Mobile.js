@@ -17,6 +17,11 @@ export default class Mobile extends Component {
 
     t.addLabel('start');
 
+    t.set(
+      document.querySelector('html'),
+      { overflow: 'hidden' },
+    );
+
     t.fromTo(
       this.nav,
       0.4,
@@ -27,6 +32,7 @@ export default class Mobile extends Component {
         x: '0%',
         ease: 'Power4.easeInOut',
       },
+      'start',
     );
 
     t.call(cb);
@@ -35,6 +41,13 @@ export default class Mobile extends Component {
   componentWillLeave(cb) {
     const t = new TimelineLite();
 
+    t.addLabel('start');
+
+    t.set(
+      document.querySelector('html'),
+      { overflow: '' },
+    );
+
     t.to(
       this.nav,
       0.4,
@@ -42,6 +55,7 @@ export default class Mobile extends Component {
         x: '100%',
         ease: 'Power4.easeInOut',
       },
+      'start',
     );
 
     t.call(cb);
