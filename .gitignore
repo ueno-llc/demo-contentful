@@ -44,6 +44,3 @@ flow-coverage/
 
 # OSX Files
 .DS_Store
-
-# Fonts
-shared/assets/fonts
