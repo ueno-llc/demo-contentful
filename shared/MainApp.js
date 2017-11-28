@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { Switch, Route, Link } from 'react-router-dom';
 import config from 'utils/config';
+import ScrollToTop from 'utils/ScrollToTop';
 
 // Layout
 import AppLayout, { Content } from 'components/app-layout';
@@ -34,34 +35,36 @@ export default class App extends Component {
 
   render() {
     return (
-      <AppLayout>
-        <Helmet {...config('helmet')} />
+      <ScrollToTop>
+        <AppLayout>
+          <Helmet {...config('helmet')} />
 
-        <Header>
-          <Navigation>
+          <Header>
+            <Navigation>
+              {this.pages}
+            </Navigation>
+          </Header>
+
+          <Content>
+            <Route component={Analytics} />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/about" component={About} />
+              <Route path="/products" component={Products} />
+              <Route path="/blog" component={Blog} />
+              <Route path="/contact-us" component={Contact} />
+              <Route path="/search/:q" component={Search} />
+              <Route component={NotFound} />
+            </Switch>
+
+            <DevTools />
+          </Content>
+
+          <Footer>
             {this.pages}
-          </Navigation>
-        </Header>
-
-        <Content>
-          <Route component={Analytics} />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/about" component={About} />
-            <Route path="/products" component={Products} />
-            <Route path="/blog" component={Blog} />
-            <Route path="/contact-us" component={Contact} />
-            <Route path="/search/:q" component={Search} />
-            <Route component={NotFound} />
-          </Switch>
-
-          <DevTools />
-        </Content>
-
-        <Footer>
-          {this.pages}
-        </Footer>
-      </AppLayout>
+          </Footer>
+        </AppLayout>
+      </ScrollToTop>
     );
   }
 }
