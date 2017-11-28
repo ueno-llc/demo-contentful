@@ -1,0 +1,30 @@
+@import '~styles/config';
+
+.results {
+  @include segment;
+
+  &__container {
+    @include container;
+  }
+
+  &__header {
+    @include h1;
+  }
+
+  &__text {
+    @include reset-paragraph;
+
+    margin-bottom: $gutter * 1;
+  }
+
+  &__input {
+    @include reset-input;
+
+    margin: 0 0 $gutter * 2;
+    padding: 10px;
+
+    width: 100%;
+
+    border: 1px solid #ccc;
+  }
+}

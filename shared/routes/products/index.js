@@ -1,60 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { withJob } from 'react-jobs';
-import Helmet from 'react-helmet';
-import ReactMarkdown from 'react-markdown';
+import { Switch, Route } from 'react-router-dom';
 
-import Segment from 'components/segment';
-import Heading from 'components/heading';
+import ProductList from './product-list';
+import Product from './product';
 
-import Store from 'store';
+const ProductsRoute = ({ match }) => (
+  <div>
+    <Switch>
+      <Route exact path={`${match.url}/:id`} component={Product} />
+      <Route exact path={`${match.url}`} component={ProductList} />
+    </Switch>
+  </div>
+);
 
-import ProductList from './components/product-list';
-import Product from './components/product';
+ProductsRoute.propTypes = {
+  match: PropTypes.object,
+};
 
-class Home extends Component {
-
-  static propTypes = {
-    jobResult: PropTypes.shape({
-      title: PropTypes.string,
-      products: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string,
-        description: PropTypes.string,
-        image: PropTypes.object,
-      })),
-    }),
-  }
-
-  render() {
-    const { jobResult: productsPage } = this.props;
-    const { title, intro, products } = productsPage;
-
-    return (
-      <div>
-        <Helmet title={title} />
-
-        <Segment>
-          <Heading>{title}</Heading>
-          {intro && (
-            <ReactMarkdown skipHtml source={intro} />
-          )}
-          <ProductList>
-            {products.map(product =>
-              <Product
-                key={product.id}
-                title={product.title}
-                description={product.description}
-                image={product.image}
-              />,
-            )}
-          </ProductList>
-        </Segment>
-      </div>
-    );
-  }
-}
-
-const contentful = new Store().contentful;
-export default withJob({
-  work: () => contentful.fetchSingleByContentType('pageProducts'),
-})(Home);
+export default ProductsRoute;

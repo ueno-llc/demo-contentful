@@ -1,0 +1,33 @@
+@import '~styles/config';
+
+.list {
+  @include segment;
+
+  &__container {
+    @include container;
+  }
+
+  &__header {
+    @include grid-col;
+
+    margin-bottom: $gutter * 2;
+
+    &Title {
+      @include h2;
+      margin-bottom: 0;
+
+      &:last-of-type {
+        @include subheading(26, 42);
+      }
+    }
+  }
+
+  &__items {
+    @include reset-list;
+    @include grid-row;
+  }
+
+  &__loading {
+    @include grid-col(4);
+  }
+}

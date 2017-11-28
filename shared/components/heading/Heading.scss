@@ -1,8 +1,0 @@
-@import '~styles/config';
-
-.heading {
-  @include responsive-font(20, 28);
-
-  font-family: 'Libre Baskerville', serif;
-  font-weight: bold;
-}

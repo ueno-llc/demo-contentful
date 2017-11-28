@@ -5,7 +5,6 @@
  * absolute paths should be resolved during runtime by our build internal/server.
  */
 
-import url from 'url';
 import path from 'path';
 import fs from 'fs';
 import appRootDir from 'app-root-dir';

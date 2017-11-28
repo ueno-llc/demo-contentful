@@ -1,6 +1,9 @@
 import { extendObservable } from 'mobx';
 import timing from 'utils/timing';
-import { parse } from 'utils/contentful';
+import { parse, linkResolver } from 'utils/contentful';
+import groupBy from 'lodash/groupBy';
+import get from 'lodash/get';
+
 import config from '../../config';
 
 const localApiUrl = config('localApiUrl');
@@ -18,16 +21,14 @@ export default class Contentful {
   }
 
   query(data = {}) {
-    const query = Object.entries(data)
+    return Object
+      .entries(data)
       .map(q => q.map(encodeURIComponent).join('=')).join('&');
-
-    return query;
   }
 
   @timing.promise
   fetchByContentType(contentType, query = {}) {
     const q = this.query(query);
-
     const url = `${apiUrl}/contentful/${contentType}?${q}`;
 
     return this.fetch(url, { force: true })
@@ -54,6 +55,30 @@ export default class Contentful {
       .catch((err) => {
         console.warn('Error fetching contentful data', err);
         return {};
+      });
+  }
+
+  @timing.promise
+  search(q) {
+    const url = `${apiUrl}/contentful/search/${q}`;
+
+    return this.fetch(url)
+      .then(data => parse(data))
+      .then(res => res.map(m => ({
+        id: m.id,
+        title: m.title,
+        intro: m.introduction || m.intro,
+        imageUrl: get(m, 'image.file.url'),
+        url: linkResolver(m.id, m.contentType),
+        type: m.contentType,
+      })))
+      .then(res => ({
+        ...groupBy(res, m => m.type || 'Others'),
+        count: res.length,
+      }))
+      .catch((err) => {
+        console.warn('Error fetching contentful data', err);
+        return { count: 0 };
       });
   }
 }

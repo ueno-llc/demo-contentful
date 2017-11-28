@@ -1,0 +1,11 @@
+@import '~styles/config';
+
+.cover {
+  &__container {
+    @include container;
+  }
+
+  &__img {
+    margin: $gutter * 2 auto 0;
+  }
+}

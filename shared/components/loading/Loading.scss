@@ -1,0 +1,156 @@
+@import '~styles/config';
+
+.loading {
+  pointer-events: none;
+  user-select: none;
+
+  &__heading,
+  &__subheading,
+  &__paragraph,
+  &__image,
+  &__portraitImage {
+    @include loading;
+
+    max-width: 100%;
+  }
+
+  &__heading,
+  &__subheading {
+    display: block;
+
+    height: 1em;
+  }
+
+  &__heading {
+    @include heading;
+
+    margin-bottom: 0.3em;
+    width: 50vw;
+  }
+
+  &__subheading {
+    @include subheading;
+
+    margin-bottom: 1.5em;
+    width: 60vw;
+  }
+
+  &__paragraph {
+    @include copy;
+
+    margin: 1.5em 0 1.2em;
+
+    height: 7.5em;
+    width: 100%;
+
+    &::after {
+      @include fit;
+
+      content: '';
+
+      background: linear-gradient(transparent 70%, #fff 0);
+      background-size: 100% 1.6em;
+      background-position: 0 0;
+    }
+  }
+
+  &__image,
+  &__portraitImage {
+    margin: 0 0 $gutter * 1.5;
+
+    width: 100%;
+    max-width: 600px;
+
+    &::after {
+      content: '';
+      display: block;
+      padding-bottom: percentage(9/16);
+    }
+  }
+
+  &__portraitImage {
+    padding-bottom: percentage(1/1.5);
+  }
+
+  &__user {
+    @include loading;
+
+    display: flex;
+    align-items: stretch;
+
+    position: relative;
+
+    margin-top: 30px;
+    margin-bottom: 45px;
+
+    width: 100%;
+    height: 60px;
+    max-width: 350px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+
+      width: 90px;
+      height: 100%;
+      background: $color-background;
+    }
+  }
+
+  &__user &__inner {
+    display: block;
+
+    flex: 1 0 auto;
+
+    position: relative;
+    z-index: 1;
+
+    height: 100%;
+
+    &::before,
+    &::after {
+      content: '';
+    }
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 60px;
+      height: 60px;
+
+      border-radius: 100%;
+      background: $color-background-loading;
+    }
+
+    &::after {
+      @include fit;
+
+      left: 90px;
+
+      margin-top: auto;
+      margin-bottom: auto;
+
+      height: 0.4em;
+
+      background: $color-background;
+    }
+  }
+
+  // generic grid
+  &__row {
+    @include grid-row;
+  }
+
+  &__col {
+    @include grid-col;
+
+    @media (min-width: $min-tablet) {
+      width: (1/3) * 100%;
+    }
+  }
+}

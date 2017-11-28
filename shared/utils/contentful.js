@@ -1,3 +1,4 @@
+import get from 'lodash/get';
 
 function linkField(field, includes) {
   if (field.sys && field.sys.type === 'Link') {
@@ -32,6 +33,7 @@ function linkEntry(item, includes) {
 
   return {
     id: item.sys.id,
+    contentType: get(item, 'sys.contentType.sys.id'),
     ...res,
   };
 }
@@ -44,4 +46,29 @@ function parse(data) {
   return parsed;
 }
 
-export { linkField, linkEntry, parse };
+function linkResolver(id, type) {
+  if (!type) {
+    return '/';
+  }
+
+  switch (type) {
+    case 'home':
+      return '/';
+    case 'about':
+      return '/about';
+    case 'contact':
+      return '/contact-us';
+    case 'products':
+      return '/products';
+    case 'product':
+      return `/products/${id}`;
+    case 'blog':
+      return `/blog/${id}`;
+    case 'author':
+      return undefined;
+    default:
+      return '/';
+  }
+}
+
+export { linkField, linkEntry, parse, linkResolver };

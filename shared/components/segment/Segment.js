@@ -29,7 +29,7 @@ export default class Segment extends Component {
       container,
     } = this.props;
 
-    const content = container ? (<Container>{children}</Container>) : children;
+    const content = container ? <Container>{children}</Container> : children;
 
     return (
       <section className={s.segment}>

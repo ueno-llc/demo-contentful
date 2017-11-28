@@ -1,0 +1,5 @@
+@import '~styles/config';
+
+.content {
+  @include segment;
+}
