@@ -16,10 +16,6 @@ export default class Cover extends Component {
   render() {
     const { children, isLoading } = this.props;
 
-    if (!children) {
-      return null;
-    }
-
     return (
       <div className={s.cover}>
         <div className={s.cover__container}>

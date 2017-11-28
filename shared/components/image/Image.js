@@ -6,7 +6,7 @@ import s from './Image.scss';
 export default class Image extends PureComponent {
 
   static propTypes = {
-    src: PropTypes.string.isRequired,
+    src: PropTypes.string,
     src2x: PropTypes.string,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,

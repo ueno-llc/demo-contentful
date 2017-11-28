@@ -52,6 +52,7 @@ const blogWithJob = withJob({
       <Heading isLoading />
       <Intro isLoading />
       <Cover isLoading />
+      <Copy isLoading />
     </Content>
   ),
 })(Blog);

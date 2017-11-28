@@ -50,8 +50,10 @@ const productWithJob = withJob({
   work: ({ contentful, match }) => contentful.fetchSingleByContentType('product', { 'sys.id': match.params.id }),
   LoadingComponent: () => (
     <Content>
-      <Heading loading />
-      <Intro loading />
+      <Heading isLoading />
+      <Intro isLoading />
+      <Cover isLoading />
+      <Copy isLoading />
     </Content>
   ),
 })(Product);
